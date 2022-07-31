@@ -9,7 +9,18 @@ public class CellScript : MonoBehaviour
     public Vector2 boardPos;
     public bool highlighted;
     bool renderHighlighted;
+    public bool highlightedMove;
+    bool renderHighlightedMove;
     public GameObject occupiedBy;
+
+
+    private void Start()
+    {
+        highlighted = false;
+        renderHighlighted = true;
+        highlightedMove = false;
+        renderHighlightedMove = true;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -17,7 +28,8 @@ public class CellScript : MonoBehaviour
         {
             foreach(MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
             {
-                rendr.enabled = true;
+                if(rendr.gameObject.tag == "highlight")
+                    rendr.enabled = true;
                 
             }
             renderHighlighted = true;
@@ -26,19 +38,44 @@ public class CellScript : MonoBehaviour
         {
             foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
             {
-                rendr.enabled = false;
-                
+                if (rendr.gameObject.tag == "highlight")
+                    rendr.enabled = false;
+
             }
             renderHighlighted = false;
         }
+
+
+        if (highlightedMove && !renderHighlightedMove)
+        {
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "highlightMove")
+                    rendr.enabled = true;
+
+            }
+            renderHighlightedMove = true;
+        }
+        else if (!highlightedMove && renderHighlightedMove)
+        {
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "highlightMove")
+                    rendr.enabled = false;
+
+            }
+            renderHighlightedMove = false;
+        }
+
+
     }
 
-    public void SetValues(Vector2 BoardPos, bool Highlighted, GameObject OccupiedBy)
+    public void SetValues(Vector2 BoardPos,  GameObject OccupiedBy)
     {
         boardPos = BoardPos;
-        highlighted = Highlighted;
-        renderHighlighted = !Highlighted;
         occupiedBy = OccupiedBy;
     }
+
+    
 
 }

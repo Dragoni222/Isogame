@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    GameObject selectedObject;
-    public GameObject selectWallsPrefab;
+    public GameObject selectedObject;
+    public GameObject selectedObjectMove;
 
     void Update()
     {
 
         //On click, find an object that the ray from the camera hits. If on the board, highlight tile. 
-        if (Input.GetButtonDown("click"))
+        if (Input.GetButtonDown("leftclick"))
         {
             if(selectedObject != null)
                 selectedObject.GetComponent<CellScript>().highlighted = false;
@@ -19,6 +19,16 @@ public class PlayerScript : MonoBehaviour
             if (selectedObject != null)
             {
                 selectedObject.GetComponent<CellScript>().highlighted = true;
+            }
+        }
+        if (Input.GetButtonDown("rightclick"))
+        {
+            if (selectedObjectMove != null)
+                selectedObjectMove.GetComponent<CellScript>().highlightedMove = false;
+            selectedObjectMove = ClickSelect(Camera.main, 0);
+            if (selectedObjectMove != null && selectedObject.GetComponent<CellScript>().occupiedBy != null)
+            {
+                selectedObjectMove.GetComponent<CellScript>().highlightedMove = true;
             }
         }
 
