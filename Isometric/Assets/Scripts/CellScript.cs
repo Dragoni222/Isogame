@@ -7,46 +7,50 @@ public class CellScript : MonoBehaviour
     // Start is called before the first frame update
 
     public Vector2 boardPos;
-    public bool highlighted;
-    bool renderHighlighted;
+    public bool highlightedAttack;
+    bool renderHighlightedAttack;
     public bool highlightedMove;
     bool renderHighlightedMove;
     public bool highlightedHover;
     bool renderHighlightedHover;
+    public bool highlightedRange;
+    bool renderHighlightedRange;
     public GameObject occupiedBy;
 
 
     private void Start()
     {
-        highlighted = false;
-        renderHighlighted = true;
+        highlightedAttack = false;
+        renderHighlightedAttack = true;
         highlightedMove = false;
         renderHighlightedMove = true;
         highlightedHover = false;
         renderHighlightedHover = true;
+        highlightedRange = false;
+        renderHighlightedRange = true;
     }
     // Update is called once per frame
     void Update()
     {
-        if (highlighted && !renderHighlighted)
+        if (highlightedAttack && !renderHighlightedAttack)
         {
             foreach(MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
             {
-                if(rendr.gameObject.tag == "highlight")
+                if(rendr.gameObject.tag == "highlightAttack")
                     rendr.enabled = true;
                 
             }
-            renderHighlighted = true;
+            renderHighlightedAttack = true;
         }
-        else if (!highlighted && renderHighlighted)
+        else if (!highlightedAttack && renderHighlightedAttack)
         {
             foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
             {
-                if (rendr.gameObject.tag == "highlight")
+                if (rendr.gameObject.tag == "highlightAttack")
                     rendr.enabled = false;
 
             }
-            renderHighlighted = false;
+            renderHighlightedAttack = false;
         }
 
 
@@ -90,7 +94,26 @@ public class CellScript : MonoBehaviour
             }
             renderHighlightedHover = false;
         }
+        if (highlightedRange && !renderHighlightedRange)
+        {
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "highlightRange")
+                    rendr.enabled = true;
 
+            }
+            renderHighlightedRange = true;
+        }
+        else if (!highlightedRange && renderHighlightedRange)
+        {
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "highlightRange")
+                    rendr.enabled = false;
+
+            }
+            renderHighlightedRange = false;
+        }
     }
 
     public void SetValues(Vector2 BoardPos,  GameObject OccupiedBy)

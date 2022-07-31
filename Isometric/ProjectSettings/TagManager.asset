@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - highlight
   - highlightMove
   - highlightHover
+  - highlightAttack
+  - highlightRange
   layers:
   - Default
   - TransparentFX

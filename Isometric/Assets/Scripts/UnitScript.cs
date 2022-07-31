@@ -54,7 +54,7 @@ public class UnitScript : MonoBehaviour
         boardPosition = BoardPos;
         if(CanMoveToTile(board, (int)boardPosition.x, (int)boardPosition.y))
         {
-            transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 5, BoardToRealPos((int)BoardPos.y));
+            transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 5.5f, BoardToRealPos((int)BoardPos.y));
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
         }
        
@@ -71,9 +71,14 @@ public class UnitScript : MonoBehaviour
 
     public void SpawnByClass(Vector2 BoardPos, BoardScript board, string CharClass)
     {
-        if(charClass == "Warrior")
+        if(CharClass == "Warrior")
         {
             SpawnBasic(BoardPos,board, charClass, 9, 2, 2, 9, 1, false, 0);
+        }
+        if (CharClass == "Lobber")
+        {
+            Debug.Log("boom");
+            SpawnBasic(BoardPos, board, charClass, 7, 2, 1, 7, 2, true, 1);
         }
     }
 
