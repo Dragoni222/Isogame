@@ -11,6 +11,8 @@ public class CellScript : MonoBehaviour
     bool renderHighlighted;
     public bool highlightedMove;
     bool renderHighlightedMove;
+    public bool highlightedHover;
+    bool renderHighlightedHover;
     public GameObject occupiedBy;
 
 
@@ -20,6 +22,8 @@ public class CellScript : MonoBehaviour
         renderHighlighted = true;
         highlightedMove = false;
         renderHighlightedMove = true;
+        highlightedHover = false;
+        renderHighlightedHover = true;
     }
     // Update is called once per frame
     void Update()
@@ -66,7 +70,26 @@ public class CellScript : MonoBehaviour
             }
             renderHighlightedMove = false;
         }
+        if (highlightedHover && !renderHighlightedHover)
+        {
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "highlightHover")
+                    rendr.enabled = true;
 
+            }
+            renderHighlightedHover = true;
+        }
+        else if (!highlightedHover && renderHighlightedHover)
+        {
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "highlightHover")
+                    rendr.enabled = false;
+
+            }
+            renderHighlightedHover = false;
+        }
 
     }
 
