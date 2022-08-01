@@ -8,6 +8,7 @@ TagManager:
   - highlightHover
   - highlightAttack
   - highlightRange
+  - Board
   layers:
   - Default
   - TransparentFX

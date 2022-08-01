@@ -16,7 +16,7 @@ public class CellScript : MonoBehaviour
     public bool highlightedRange;
     bool renderHighlightedRange;
     public GameObject occupiedBy;
-
+    private BoardScript board;
 
     private void Start()
     {
@@ -28,6 +28,7 @@ public class CellScript : MonoBehaviour
         renderHighlightedHover = true;
         highlightedRange = false;
         renderHighlightedRange = true;
+        board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
     }
     // Update is called once per frame
     void Update()

@@ -9,12 +9,13 @@ public class PlayerScript : MonoBehaviour
     public UnitScript selectedUnit;
     public CellScript selectedCell;
     public GameObject unit;
-    public BoardScript board;
+    private BoardScript board;
     public GameObject hoveredTile;
     public GameObject hoverTileGeneral;
     public CellScript hoverTileGeneralScript;
     private int hoverRad;
     private bool hoverExtend = true;
+    public List<Vector2> hoverPath;
 
     private void Start()
     {
@@ -23,22 +24,42 @@ public class PlayerScript : MonoBehaviour
         selectedUnit = null;
         selectedCell = null;
         hoveredTile = null;
+        board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
     }
     void Update()
     {
+
         
+
         hoverTileGeneral = ClickSelect(Camera.main, 0);
         if (hoverTileGeneral != null)
             hoverTileGeneralScript = hoverTileGeneral.GetComponent<CellScript>();
         if(selectedUnit != null)
         {
-            if (!InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.range))
+            if (!InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.range) && selectedObjectAttack != null)
             {
                 hoverExtend = false;
             }
-            else
+            else if(selectedObjectAttack != null)
             {
                 hoverExtend = true;
+                
+            }
+            else if(selectedObjectMove != null)
+            {
+                hoverExtend = false;
+              
+                hoverPath = UnitScript.Pathfind(board.allCells, selectedUnit.boardPosition, hoverTileGeneralScript.boardPos);
+                if (hoverPath != null)
+                {
+                    foreach (Vector2 cell in hoverPath)
+                    {
+                        board.allCells[(int)cell.x, (int)cell.y].GetComponent<CellScript>().highlightedHover = true;
+                    }
+                }
+
+                
+                
             }
         }
         else
@@ -76,33 +97,38 @@ public class PlayerScript : MonoBehaviour
         //On click, find an object that the ray from the camera hits. If on the board, highlight tile. 
         if (Input.GetButtonDown("leftclick"))
         {
+            DehighlightAll(board, "blue");
             hoverRad = 0;
             if (selectedObjectAttack != null)
-            {
                 selectedObjectAttack.GetComponent<CellScript>().highlightedAttack = false;
-            }
-
             selectedObjectAttack = null;
             if (selectedObjectMove != null)
             {
                 if (hoverTileGeneral != null)
                 {
-                    if (board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy != null)
+                    if (board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy != null && selectedUnit == null)
                     {
+                        //Initial click on unit (DO SAME THING IN BELOW PART)
+                      
                         selectedUnit = board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy.GetComponent<UnitScript>();
+                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
+
                     }
-                    else if (selectedUnit != null && selectedUnit.CanMoveToTile(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y))
+                    else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.speed) && selectedUnit.CanMoveToTile(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y))
                     {
-                        board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedMove = false;
-                        selectedUnit.MoveToTile(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y);
+                        //Clicking on square other than another player or off the board (PUT MOVE METHOD HERE)
+                        board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
+                        selectedUnit.MoveToTile(board, hoverPath);
+                        
+                        selectedObjectMove = null;
+                        selectedUnit = null;
+                        selectedCell = null;
+
                     }
-                    selectedObjectMove.GetComponent<CellScript>().highlightedMove = false;
                     selectedObjectMove = hoverTileGeneral;
-                    selectedObjectMove.GetComponent<CellScript>().highlightedMove = true;
                 }
                 else
                 {
-                    selectedObjectMove.GetComponent<CellScript>().highlightedMove = false;
                     selectedObjectMove = null;
                 }
 
@@ -114,10 +140,13 @@ public class PlayerScript : MonoBehaviour
                     selectedObjectMove = hoverTileGeneral;
                     if (hoverTileGeneralScript.occupiedBy != null)
                     {
+                        //Initial click on unit (DO SAME THING IN ABOVE PART)
+                      
                         selectedUnit = hoverTileGeneralScript.occupiedBy.GetComponent<UnitScript>();
+                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
                     }
                 }
-                selectedObjectMove.GetComponent<CellScript>().highlightedMove = true;
+
 
 
             }
@@ -125,6 +154,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (Input.GetButtonDown("rightclick"))
         {
+            DehighlightAll(board, "blue");
             hoverRad = 0;
             if (selectedObjectMove != null)
                 selectedObjectMove.GetComponent<CellScript>().highlightedMove = false;
@@ -133,9 +163,10 @@ public class PlayerScript : MonoBehaviour
             {
                 if (hoverTileGeneral != null)
                 {
-                    if (board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy != null)
+                    if (board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy != null && selectedUnit == null)
                     {
                         //Initial click on unit (DO SAME THING IN BELOW PART)
+                        DehighlightAll(board, "blue");
                         selectedUnit = board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy.GetComponent<UnitScript>();
                         HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.range, true, "blue", false);
                         hoverRad = selectedUnit.aoeRadius;
@@ -145,6 +176,11 @@ public class PlayerScript : MonoBehaviour
                     {
                         //Clicking on square other than another player or off the board (PUT ATTACK METHOD HERE)
                         board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
+                        selectedUnit.Attack(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y);
+                        DehighlightAll(board, "blue");
+                        selectedObjectAttack = null;
+                        selectedUnit = null;
+                        selectedCell = null;
 
                     }
                     selectedObjectAttack = hoverTileGeneral;
@@ -163,20 +199,42 @@ public class PlayerScript : MonoBehaviour
                     if (hoverTileGeneralScript.occupiedBy != null)
                     {
                         //Initial click on unit (DO SAME THING IN ABOVE PART)
+                        DehighlightAll(board, "blue");
                         selectedUnit = hoverTileGeneralScript.occupiedBy.GetComponent<UnitScript>();
                         HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.range, true, "blue", false);
                         hoverRad = selectedUnit.aoeRadius;
                     }
                 }
-                selectedObjectAttack.GetComponent<CellScript>().highlightedAttack = true;
+                
 
 
             }
 
         }
+        //Debug unit spawning
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Warrior", 1);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Lobber", 1);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Ranger", 1);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Warrior", 2);
+        }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Lobber");
+            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Lobber", 2);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Instantiate(unit, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<UnitScript>().SpawnByClass(hoverTileGeneral.GetComponent<CellScript>().boardPos, board, "Ranger", 2);
         }
 
 
