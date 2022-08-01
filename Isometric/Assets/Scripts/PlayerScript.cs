@@ -114,11 +114,11 @@ public class PlayerScript : MonoBehaviour
                         HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
 
                     }
-                    else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.speed) && selectedUnit.CanMoveToTile(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y))
+                    else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.speed) && selectedUnit.boardPosition != hoverTileGeneralScript.boardPos)
                     {
                         //Clicking on square other than another player or off the board (PUT MOVE METHOD HERE)
                         board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
-                        selectedUnit.MoveToTile(board, hoverPath);
+                        selectedUnit.StartCoroutine(selectedUnit.MoveToTile(hoverPath));
                         
                         selectedObjectMove = null;
                         selectedUnit = null;
