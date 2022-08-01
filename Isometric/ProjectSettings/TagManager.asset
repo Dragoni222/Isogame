@@ -9,6 +9,7 @@ TagManager:
   - highlightAttack
   - highlightRange
   - Board
+  - turnOrder
   layers:
   - Default
   - TransparentFX

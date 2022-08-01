@@ -38,12 +38,14 @@ public class UnitScript : MonoBehaviour
 
     private void Update()
     {
-        if(hp<= 0)
+        if(hp <= 0&& !dead)
         {
             board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
             dead = true;
-            gameObject.SetActive(false);
+            transform.position = new Vector3(0,300,0);
         }
+
+
     }
 
 
@@ -114,11 +116,6 @@ public class UnitScript : MonoBehaviour
     public bool SpawnBasic(Vector2 BoardPos, BoardScript board, string CharClass,int Hp, int Damage, int Speed, int MaxHP, int Range, bool HitsSelf, int AoeRadius, bool Lob, int Team)
     {
         boardPosition = BoardPos;
-        if(CanMoveToTile(board, (int)boardPosition.x, (int)boardPosition.y))
-        {
-            transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 5.5f, BoardToRealPos((int)BoardPos.y));
-            board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
-        }
        
         charClass = CharClass;
         hp = Hp;
@@ -130,6 +127,14 @@ public class UnitScript : MonoBehaviour
         aoeRadius = AoeRadius;
         team = Team;
         lob = Lob;
+        if(team == 1)
+        {
+            GameObject.Find("Player1").GetComponent<PlayerScript>().units.Add(gameObject.GetComponent<UnitScript>());
+        }
+        else
+        {
+            GameObject.Find("Player2").GetComponent<PlayerScript>().units.Add(gameObject.GetComponent<UnitScript>());
+        }
         return true;
     }
 
@@ -137,7 +142,7 @@ public class UnitScript : MonoBehaviour
     {
         if(CharClass == "Warrior")
         {
-            SpawnBasic(BoardPos, board, CharClass, 9, 2, 6, 9, 1, false, 0,false, Team);
+            SpawnBasic(BoardPos, board, CharClass, 9, 2, 2, 9, 1, false, 0,false, Team);
         }
         if (CharClass == "Lobber")
         {
@@ -148,6 +153,28 @@ public class UnitScript : MonoBehaviour
         {
             SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0,false, Team);
         }
+    }
+
+    public bool Respawn(Vector2 BoardPos, BoardScript Board)
+    {
+        if (CanMoveToTile(board, (int)boardPosition.x, (int)boardPosition.y))
+        {
+            transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 100f, BoardToRealPos((int)BoardPos.y));
+            board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
+            dead = false;
+            hp = maxHP;
+            transform.DOMoveY(5.5f, 1).SetEase(Ease.InQuad);
+            if(team == 1)
+            {
+                GameObject.Find("Player1").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());
+            }
+            else
+            {
+                GameObject.Find("Player2").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());
+            }
+            return true;
+        }
+        return false;
     }
 
     //math

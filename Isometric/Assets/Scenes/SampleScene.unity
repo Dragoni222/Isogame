@@ -398,6 +398,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 65.2, y: -135, z: 0}
+--- !u!1 &1379801291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379801293}
+  - component: {fileID: 1379801292}
+  m_Layer: 0
+  m_Name: TurnOrderer
+  m_TagString: turnOrder
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1379801292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379801291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20f9641e458e7647b7572bcb73663e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPhase: 1
+  shopPhase: 0
+  playPhase: 0
+  Player1: {fileID: 1594010754}
+  hasMoved: 0
+  hasAttacked: 0
+  hasPlaced: 0
+  Player2: {fileID: 1797064720}
+  unitPrefab: {fileID: 7084504083209159567, guid: fdbb42ff04afab04b9241548014e83d1, type: 3}
+  board: {fileID: 744087886}
+--- !u!4 &1379801293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379801291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1594010752
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +463,7 @@ GameObject:
   - component: {fileID: 1594010753}
   - component: {fileID: 1594010754}
   m_Layer: 0
-  m_Name: PlayerPrefab
+  m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,6 +505,67 @@ MonoBehaviour:
   hoverTileGeneral: {fileID: 0}
   hoverTileGeneralScript: {fileID: -1363066200187423645, guid: 8b65713aa3d861e45ad96dc4d81e982b, type: 3}
   hoverPath: []
+  units: []
+  unitsToDrop: []
+  selectedUnitID: 0
+  myTurn: 0
+--- !u!1 &1797064719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1797064721}
+  - component: {fileID: 1797064720}
+  m_Layer: 0
+  m_Name: Player2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1797064720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797064719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4895fd9d12c6a4f9334077e9b3ff5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedObjectAttack: {fileID: 0}
+  selectedObjectMove: {fileID: 0}
+  selectedUnit: {fileID: 0}
+  selectedCell: {fileID: 0}
+  unit: {fileID: 7084504083209159567, guid: fdbb42ff04afab04b9241548014e83d1, type: 3}
+  hoveredTile: {fileID: 0}
+  hoverTileGeneral: {fileID: 0}
+  hoverTileGeneralScript: {fileID: -1363066200187423645, guid: 8b65713aa3d861e45ad96dc4d81e982b, type: 3}
+  hoverPath: []
+  units: []
+  unitsToDrop: []
+  selectedUnitID: 0
+  myTurn: 0
+--- !u!4 &1797064721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797064719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4624023, y: -26.93428, z: 27.283226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &436551143280564712
 MeshRenderer:
   m_ObjectHideFlags: 0
