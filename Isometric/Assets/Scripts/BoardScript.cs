@@ -14,7 +14,7 @@ public class BoardScript : MonoBehaviour
         {
             for(int y = 0; y < 8; y++)
             {
-                allCells[x, y] = Instantiate(cellPrefab, new Vector3(BoardToRealPos(x), 3f, BoardToRealPos(y)), Quaternion.identity);
+                allCells[x, y] = Instantiate(cellPrefab, new Vector3(BoardToRealPos(x), 1f, BoardToRealPos(y)), Quaternion.identity);
                 allCells[x, y].GetComponent<CellScript>().SetValues( new Vector2(x,y), null);
             }
         }

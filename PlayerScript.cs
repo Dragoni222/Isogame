@@ -15,7 +15,6 @@ public class PlayerScript : MonoBehaviour
     public CellScript hoverTileGeneralScript;
     private int hoverRad;
     private bool hoverExtend = true;
-    public List<Vector2> hoverPath;
 
     private void Start()
     {
@@ -28,38 +27,21 @@ public class PlayerScript : MonoBehaviour
     }
     void Update()
     {
-
         
+
 
         hoverTileGeneral = ClickSelect(Camera.main, 0);
         if (hoverTileGeneral != null)
             hoverTileGeneralScript = hoverTileGeneral.GetComponent<CellScript>();
         if(selectedUnit != null)
         {
-            if (!InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.range) && selectedObjectAttack != null)
+            if (!InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.range))
             {
                 hoverExtend = false;
             }
-            else if(selectedObjectAttack != null)
+            else
             {
                 hoverExtend = true;
-                
-            }
-            else if(selectedObjectMove != null)
-            {
-                hoverExtend = false;
-              
-                hoverPath = UnitScript.Pathfind(board.allCells, selectedUnit.boardPosition, hoverTileGeneralScript.boardPos);
-                if (hoverPath != null)
-                {
-                    foreach (Vector2 cell in hoverPath)
-                    {
-                        board.allCells[(int)cell.x, (int)cell.y].GetComponent<CellScript>().highlightedHover = true;
-                    }
-                }
-
-                
-                
             }
         }
         else
@@ -97,10 +79,9 @@ public class PlayerScript : MonoBehaviour
         //On click, find an object that the ray from the camera hits. If on the board, highlight tile. 
         if (Input.GetButtonDown("leftclick"))
         {
-            DehighlightAll(board, "blue");
             hoverRad = 0;
             if (selectedObjectAttack != null)
-                selectedObjectAttack.GetComponent<CellScript>().highlightedAttack = false;
+                selectedObjectMove.GetComponent<CellScript>().highlightedAttack = false;
             selectedObjectAttack = null;
             if (selectedObjectMove != null)
             {
@@ -109,17 +90,18 @@ public class PlayerScript : MonoBehaviour
                     if (board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy != null && selectedUnit == null)
                     {
                         //Initial click on unit (DO SAME THING IN BELOW PART)
-                      
+                        DehighlightAll(board, "blue");
                         selectedUnit = board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy.GetComponent<UnitScript>();
                         HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
+                        hoverRad = selectedUnit.aoeRadius;
 
                     }
                     else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.speed) && selectedUnit.CanMoveToTile(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y))
                     {
                         //Clicking on square other than another player or off the board (PUT MOVE METHOD HERE)
                         board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
-                        selectedUnit.MoveToTile(board, hoverPath);
-                        
+                        selectedUnit.MoveToTile(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y);
+                        DehighlightAll(board, "blue");
                         selectedObjectMove = null;
                         selectedUnit = null;
                         selectedCell = null;
@@ -141,7 +123,7 @@ public class PlayerScript : MonoBehaviour
                     if (hoverTileGeneralScript.occupiedBy != null)
                     {
                         //Initial click on unit (DO SAME THING IN ABOVE PART)
-                      
+                        DehighlightAll(board, "blue");
                         selectedUnit = hoverTileGeneralScript.occupiedBy.GetComponent<UnitScript>();
                         HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
                     }
@@ -154,7 +136,6 @@ public class PlayerScript : MonoBehaviour
         }
         if (Input.GetButtonDown("rightclick"))
         {
-            DehighlightAll(board, "blue");
             hoverRad = 0;
             if (selectedObjectMove != null)
                 selectedObjectMove.GetComponent<CellScript>().highlightedMove = false;
