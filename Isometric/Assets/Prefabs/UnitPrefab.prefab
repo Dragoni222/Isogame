@@ -78,7 +78,10 @@ MonoBehaviour:
   range: 1
   hitsSelf: 0
   aoeRadius: 0
+  team: 0
+  dead: 0
   smoothMoveEase: 16
+  missile: {fileID: 6429416542110867924, guid: 485e8535510a9464790098b91f4851fd, type: 3}
 --- !u!1001 &3583647951306919701
 PrefabInstance:
   m_ObjectHideFlags: 0
