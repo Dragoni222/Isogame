@@ -21,13 +21,13 @@ public class UnitScript : MonoBehaviour
     public int aoeRadius;
     public int team;
     public bool dead;
+    public bool lob;
 
     //Hidden stats
     public Ease smoothMoveEase;
     bool canMoveAgain = true;
     private BoardScript board;
     public GameObject missile;
-    public GameObject missileExplosion;
     private void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
@@ -67,7 +67,6 @@ public class UnitScript : MonoBehaviour
             {
                 yield return new WaitUntil(() => canMoveAgain);
             }
-            Debug.Log(cell.ToString());
             if (CanMoveToTile(board, (int)cell.x, (int)cell.y))
             {
                 
@@ -104,7 +103,7 @@ public class UnitScript : MonoBehaviour
             }
             List<CellScript> affectedCells = PlayerScript.AllCellsInRadius(board, x, y, aoeRadius, includeCenter);
 
-            Instantiate(missile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), false, missileExplosion, false, damage, affectedCells, hitsSelf);
+            Instantiate(missile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), affectedCells, gameObject.GetComponent<UnitScript>());
 
             
         }
@@ -112,7 +111,7 @@ public class UnitScript : MonoBehaviour
     }
 
     //Spawning
-    public bool SpawnBasic(Vector2 BoardPos, BoardScript board, string CharClass,int Hp, int Damage, int Speed, int MaxHP, int Range, bool HitsSelf, int AoeRadius, int Team)
+    public bool SpawnBasic(Vector2 BoardPos, BoardScript board, string CharClass,int Hp, int Damage, int Speed, int MaxHP, int Range, bool HitsSelf, int AoeRadius, bool Lob, int Team)
     {
         boardPosition = BoardPos;
         if(CanMoveToTile(board, (int)boardPosition.x, (int)boardPosition.y))
@@ -130,6 +129,7 @@ public class UnitScript : MonoBehaviour
         hitsSelf = HitsSelf;
         aoeRadius = AoeRadius;
         team = Team;
+        lob = Lob;
         return true;
     }
 
@@ -137,15 +137,16 @@ public class UnitScript : MonoBehaviour
     {
         if(CharClass == "Warrior")
         {
-            SpawnBasic(BoardPos, board, CharClass, 9, 2, 6, 9, 1, false, 0, Team);
+            SpawnBasic(BoardPos, board, CharClass, 9, 2, 6, 9, 1, false, 0,false, Team);
         }
         if (CharClass == "Lobber")
         {
-            SpawnBasic(BoardPos, board, CharClass, 7, 2, 1, 7, 2, true, 1, Team);
+            SpawnBasic(BoardPos, board, CharClass, 7, 2, 1, 7, 2, true, 1, true, Team);
+            
         }
         if (CharClass == "Ranger")
         {
-            SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0, Team);
+            SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0,false, Team);
         }
     }
 

@@ -111,7 +111,7 @@ public class PlayerScript : MonoBehaviour
                         //Initial click on unit (DO SAME THING IN BELOW PART)
                       
                         selectedUnit = board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy.GetComponent<UnitScript>();
-                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
+                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, false, "blue", false);
 
                     }
                     else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.speed) && selectedUnit.boardPosition != hoverTileGeneralScript.boardPos)
@@ -143,7 +143,7 @@ public class PlayerScript : MonoBehaviour
                         //Initial click on unit (DO SAME THING IN ABOVE PART)
                       
                         selectedUnit = hoverTileGeneralScript.occupiedBy.GetComponent<UnitScript>();
-                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, true, "blue", false);
+                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.speed, false, "blue", false);
                     }
                 }
 
@@ -168,7 +168,7 @@ public class PlayerScript : MonoBehaviour
                         //Initial click on unit (DO SAME THING IN BELOW PART)
                         DehighlightAll(board, "blue");
                         selectedUnit = board.allCells[(int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y].GetComponent<CellScript>().occupiedBy.GetComponent<UnitScript>();
-                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.range, true, "blue", false);
+                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.range, false, "blue", false);
                         hoverRad = selectedUnit.aoeRadius;
 
                     }
@@ -201,7 +201,7 @@ public class PlayerScript : MonoBehaviour
                         //Initial click on unit (DO SAME THING IN ABOVE PART)
                         DehighlightAll(board, "blue");
                         selectedUnit = hoverTileGeneralScript.occupiedBy.GetComponent<UnitScript>();
-                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.range, true, "blue", false);
+                        HighlightAllCellsInRadius(board, (int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y, selectedUnit.range, false, "blue", false);
                         hoverRad = selectedUnit.aoeRadius;
                     }
                 }
@@ -259,8 +259,7 @@ public class PlayerScript : MonoBehaviour
     public static List<CellScript> AllCellsInRadius(BoardScript board, int x, int y, int radius, bool includeCenter)
     {
         List<CellScript> finalList = new List<CellScript>();
-        if (includeCenter)
-            finalList.Add(board.allCells[x, y].GetComponent<CellScript>());
+  
 
         foreach (GameObject cell in board.allCells)
         {
@@ -271,7 +270,8 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-
+        if (!includeCenter)
+            finalList.Remove(board.allCells[x, y].GetComponent<CellScript>());
         return finalList;
     }
 
