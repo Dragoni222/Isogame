@@ -104,7 +104,7 @@ public class UnitScript : MonoBehaviour
             }
             List<CellScript> affectedCells = PlayerScript.AllCellsInRadius(board, x, y, aoeRadius, includeCenter);
 
-            Instantiate(missile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), false, aoeRadius, false);
+            //Instantiate(missile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), false, aoeRadius, false);
 
             foreach (CellScript cell in affectedCells)
             {
