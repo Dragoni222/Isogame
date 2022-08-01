@@ -11,6 +11,10 @@ public class ProjectileScript : MonoBehaviour
     public bool slash;
     bool shoot = false; 
     public Ease smoothMoveProjectile;
+    public int damage;
+    public List<CellScript> affectedCells;
+    public bool hitsSelf;
+    public int team;
     void Start()
     {
         
@@ -29,17 +33,36 @@ public class ProjectileScript : MonoBehaviour
 
     private void ProjectileHit()
     {
+        Instantiate(kaboom, transform.position, Quaternion.identity);
+        foreach (CellScript cell in affectedCells)
+        {
+            if (cell.occupiedBy != null)
+            {
+                if (hitsSelf)
+                {
+                    cell.occupiedBy.GetComponent<UnitScript>().hp -= damage;
+                }
+                else if (cell.occupiedBy.GetComponent<UnitScript>().team != team)
+                {
+                    cell.occupiedBy.GetComponent<UnitScript>().hp -= damage;
+                }
 
+
+            }
+        }
         Destroy(gameObject);
         
     }
 
-    public void SetSpawnValues(Vector3 FinalPos, bool Lob, GameObject Kaboom, bool SlashEffect)
+    public void SetSpawnValues(Vector3 FinalPos, bool Lob, GameObject Kaboom, bool SlashEffect, int Damage, List<CellScript> AffectedCells, bool HitsSelf)
     {
         finalPos = new Vector3(UnitScript.BoardToRealPos((int)FinalPos.x), 5, UnitScript.BoardToRealPos((int)FinalPos.y));
         lob = Lob;
         kaboom = Kaboom;
         slash = SlashEffect;
         shoot = true;
+        Damage = damage;
+        affectedCells = AffectedCells;
+        hitsSelf = HitsSelf;
     }
 }
