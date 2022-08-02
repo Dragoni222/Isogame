@@ -89,6 +89,7 @@ public class UnitScript : MonoBehaviour
     //Attacking
     public void Attack(BoardScript board, int x, int y)
     {
+        Debug.Log("Attack");
         if (!dead)
         {
             bool includeCenter;
@@ -157,10 +158,10 @@ public class UnitScript : MonoBehaviour
 
     public bool Respawn(Vector2 BoardPos, BoardScript Board)
     {
-        dead = false;
-        if (CanMoveToTile(Board, (int)boardPosition.x, (int)boardPosition.y))
+         dead = false;
+        if (Board.allCells[(int)BoardPos.x,(int)BoardPos.y].GetComponent<CellScript>().occupiedBy == null )
         {
-            Debug.Log("here");
+            boardPosition = BoardPos;
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 100f, BoardToRealPos((int)BoardPos.y));
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
            

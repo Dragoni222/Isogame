@@ -9,7 +9,6 @@ public class ProjectileScript : MonoBehaviour
     public Ease smoothMoveProjectile;
     public Ease smoothMoveLob;
     public List<CellScript> affectedCells;
-    bool shoot = false;
     UnitScript unit;
     Rigidbody rb;
     public float speed;
@@ -26,36 +25,16 @@ public class ProjectileScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (shoot)
+
+        if (transform.position.y <= 4 && unit.lob)
         {
-            if (unit.aoeRadius == 0)
-                missileExplosion = missileExplosion1;
-            if (unit.aoeRadius == 1)
-                missileExplosion = missileExplosion2;
-            if (unit.aoeRadius == 2)
-                missileExplosion = missileExplosion3;
-
-            if (unit.lob)
-            {
-                rb.useGravity = true;
-                rb.AddForce(new Vector3(finalPos.x - transform.position.x, 0, finalPos.z - transform.position.z) * speed);
-                rb.AddForce(new Vector3(0, upForce, 0));
-                
-
-            }
-            else
-            {
-                transform.DOMove(finalPos, 1).OnComplete(() => { ProjectileHit(); }).SetEase(smoothMoveProjectile);
-            }
-            shoot = false;
-        }
-        if (transform.position.y <= 4)
             ProjectileHit();
-
+        }
     }
 
     private void ProjectileHit()
     {
+        Debug.Log("in prokjecttile hit");
         Instantiate(missileExplosion, transform.position, Quaternion.identity);
         foreach (CellScript cell in affectedCells)
         {
@@ -84,6 +63,32 @@ public class ProjectileScript : MonoBehaviour
        
         affectedCells = AffectedCells;
         unit = Unit;
-        shoot = true;
+        Shoot();
+    }
+
+    private void Shoot()
+    {
+        Debug.Log("shoot");
+        if (unit.aoeRadius == 0)
+            missileExplosion = missileExplosion1;
+        if (unit.aoeRadius == 1)
+            missileExplosion = missileExplosion2;
+        if (unit.aoeRadius == 2)
+            missileExplosion = missileExplosion3;
+
+        if (unit.lob)
+        {
+            rb.useGravity = true;
+            rb.AddForce(new Vector3(finalPos.x - transform.position.x, 0, finalPos.z - transform.position.z) * speed);
+            rb.AddForce(new Vector3(0, upForce, 0));
+
+
+        }
+        else
+        {
+            transform.DOMove(finalPos, 1).OnComplete(() => { ProjectileHit(); }).SetEase(smoothMoveProjectile);
+        }
+        
+    
     }
 }

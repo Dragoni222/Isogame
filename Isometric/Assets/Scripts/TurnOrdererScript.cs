@@ -8,7 +8,7 @@ public class TurnOrdererScript : MonoBehaviour
     int whosTurn;
     public bool spawnPhase;
     public bool shopPhase;
-    public bool playPhase;
+    public bool attackPhase;
     public PlayerScript Player1;
     public bool hasMoved;
     public bool hasAttacked;
@@ -17,6 +17,12 @@ public class TurnOrdererScript : MonoBehaviour
     public GameObject unitPrefab;
     public BoardScript board;
     GameObject unit;
+    public bool player1UnitAlive;
+    public bool player2UnitAlive;
+    public bool player1UnitAliveTemp;
+    public bool player2UnitAliveTemp;
+
+
     void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
@@ -26,6 +32,14 @@ public class TurnOrdererScript : MonoBehaviour
         unit = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity);
         unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Warrior", 2);
         unit.GetComponent<UnitScript>().dead = true;
+
+        unit = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity);
+        unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Ranger", 1);
+        unit.GetComponent<UnitScript>().dead = true;
+        unit = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity);
+        unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Ranger", 2);
+        unit.GetComponent<UnitScript>().dead = true;
+
         SpawnPhaseStart(1);
     }
 
@@ -34,6 +48,7 @@ public class TurnOrdererScript : MonoBehaviour
     {
         if (spawnPhase)
         {
+            
             if (hasPlaced)
             {
                 if(whosTurn == 1)
@@ -54,8 +69,104 @@ public class TurnOrdererScript : MonoBehaviour
                     Player1.selectedUnitID = 0;
                 }
             }
-                   
             
+            if(Player1.unitsToDrop.Count == 0 && Player2.unitsToDrop.Count == 0)
+            {
+                if(whosTurn == 1)
+                    AttackPhaseStart(2);
+                else
+                    AttackPhaseStart(1);
+            }
+            else if(Player1.unitsToDrop.Count == 0)
+            {
+                whosTurn = 2;
+                hasPlaced = false;
+                Player2.myTurn = true;
+                Player1.myTurn = false;
+                Player2.selectedUnitID = 0;
+            }
+            else if (Player2.unitsToDrop.Count == 0)
+            {
+                whosTurn = 1;
+                hasPlaced = false;
+                Player1.myTurn = true;
+                Player2.myTurn = false;
+                Player1.selectedUnitID = 0;
+            }
+            
+        }
+        else if (attackPhase)
+        {
+            if(hasAttacked && hasMoved)
+            {
+                if(whosTurn == 1)
+                {
+                    whosTurn = 2;
+                    hasAttacked = false;
+                    hasMoved = false;
+                    Player2.myTurn = true;
+                    Player1.myTurn = false;
+                }
+                else if (whosTurn == 2)
+                {
+                    whosTurn = 1;
+                    hasAttacked = false;
+                    hasMoved = false;
+                    Player2.myTurn = false;
+                    Player1.myTurn = true;
+                }
+            }
+
+
+            player1UnitAliveTemp = false;
+            foreach (UnitScript Unit in Player1.units)
+            {
+                if(Unit != null)
+                {
+                    if (!Unit.dead)
+                    {
+                        player1UnitAliveTemp = true;
+                        return;
+                    }
+                }
+            }
+            if (player1UnitAliveTemp)
+            {
+                player1UnitAlive = true;
+            }
+            else
+            {
+                player1UnitAlive = false;
+            }
+
+
+            player2UnitAliveTemp = false;
+            foreach (UnitScript Unit in Player2.units)
+            {
+                if (Unit != null)
+                {
+                    if (!Unit.dead)
+                    {
+                        player2UnitAliveTemp = true;
+                        return;
+                    }
+                }
+            }
+            if (player2UnitAliveTemp)
+            {
+                player2UnitAlive = true;
+            }
+            else
+            {
+                player2UnitAlive = false;
+            }
+
+            if(!player1UnitAlive && !player2UnitAlive)
+            {
+                //PUT SHOP PHASE START HERE
+            }
+
+
         }
     }
 
@@ -63,7 +174,7 @@ public class TurnOrdererScript : MonoBehaviour
     {
         spawnPhase = true;
         shopPhase = false;
-        playPhase = false;
+        attackPhase = false;
         whosTurn = startPlayer;
         Player1.unitsToDrop = new List<UnitScript>();
         Player2.unitsToDrop = new List<UnitScript>();
@@ -93,6 +204,29 @@ public class TurnOrdererScript : MonoBehaviour
             Player1.selectedUnitID = 0;
         }
     }
+
+    public void AttackPhaseStart(int startPlayer)
+    {
+        spawnPhase = false;
+        shopPhase = false;
+        attackPhase = true;
+        whosTurn = startPlayer;
+        player1UnitAlive = true;
+        player2UnitAlive = true;
+        player1UnitAliveTemp = true;
+        player2UnitAliveTemp = true;
+        if (whosTurn == 1)
+        {
+            Player1.myTurn = true;
+            Player2.myTurn = false;
+        }
+        else
+        {
+            Player2.myTurn = true;
+            Player2.myTurn = false;
+        }
+    }
+
 
 
 
