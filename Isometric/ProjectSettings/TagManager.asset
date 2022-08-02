@@ -10,6 +10,12 @@ TagManager:
   - highlightRange
   - Board
   - turnOrder
+  - Ranger1
+  - Ranger2
+  - Lobber1
+  - Lobber2
+  - Warrior1
+  - Warrior2
   layers:
   - Default
   - TransparentFX

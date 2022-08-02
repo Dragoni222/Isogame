@@ -10,7 +10,7 @@ public class ProjectileScript : MonoBehaviour
     public Ease smoothMoveLob;
     public List<CellScript> affectedCells;
     UnitScript unit;
-    Rigidbody rb;
+    public Rigidbody rb;
     public float speed;
     public float upForce;
     GameObject missileExplosion;
@@ -20,7 +20,7 @@ public class ProjectileScript : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        
     }
     // Update is called once per frame
     void Update()
@@ -34,11 +34,9 @@ public class ProjectileScript : MonoBehaviour
 
     private void ProjectileHit()
     {
-        Debug.Log("in prokjecttile hit");
         Instantiate(missileExplosion, transform.position, Quaternion.identity);
         foreach (CellScript cell in affectedCells)
         {
-            Debug.Log(cell.boardPos.ToString());
             if (cell.occupiedBy != null)
             {
                 if (unit.hitsSelf)
@@ -68,7 +66,6 @@ public class ProjectileScript : MonoBehaviour
 
     private void Shoot()
     {
-        Debug.Log("shoot");
         if (unit.aoeRadius == 0)
             missileExplosion = missileExplosion1;
         if (unit.aoeRadius == 1)

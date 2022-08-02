@@ -5895,7 +5895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1131850431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7394,7 +7394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPhase: 1
   shopPhase: 0
-  playPhase: 0
+  attackPhase: 0
   Player1: {fileID: 1594010754}
   hasMoved: 0
   hasAttacked: 0
@@ -7402,6 +7402,10 @@ MonoBehaviour:
   Player2: {fileID: 1797064720}
   unitPrefab: {fileID: 7084504083209159567, guid: fdbb42ff04afab04b9241548014e83d1, type: 3}
   board: {fileID: 744087886}
+  player1UnitAlive: 0
+  player2UnitAlive: 0
+  player1UnitAliveTemp: 0
+  player2UnitAliveTemp: 0
 --- !u!4 &1379801293
 Transform:
   m_ObjectHideFlags: 0

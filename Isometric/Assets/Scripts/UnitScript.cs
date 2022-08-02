@@ -28,6 +28,12 @@ public class UnitScript : MonoBehaviour
     bool canMoveAgain = true;
     private BoardScript board;
     public GameObject missile;
+
+   
+
+
+
+
     private void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
@@ -89,7 +95,6 @@ public class UnitScript : MonoBehaviour
     //Attacking
     public void Attack(BoardScript board, int x, int y)
     {
-        Debug.Log("Attack");
         if (!dead)
         {
             bool includeCenter;
@@ -148,11 +153,37 @@ public class UnitScript : MonoBehaviour
         if (CharClass == "Lobber")
         {
             SpawnBasic(BoardPos, board, CharClass, 7, 2, 1, 7, 2, true, 1, true, Team);
+            foreach(MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>() )
+            {
+                if(rendr.gameObject.tag == "Lobber1" && team == 1)
+                {
+                    rendr.enabled = true;
+                    return;
+                }
+                if (rendr.gameObject.tag == "Lobber2" && team == 2)
+                {
+                    rendr.enabled = true;
+                    return;
+                }
+            }
             
         }
         if (CharClass == "Ranger")
         {
             SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0,false, Team);
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "Ranger1" && team == 1)
+                {
+                    rendr.enabled = true;
+                    return;
+                }
+                if (rendr.gameObject.tag == "Ranger2" && team == 2)
+                {
+                    rendr.enabled = true;
+                    return;
+                }
+            }
         }
     }
 
@@ -166,7 +197,7 @@ public class UnitScript : MonoBehaviour
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
            
             hp = maxHP;
-            transform.DOMoveY(5.5f, 1).SetEase(Ease.InQuad);
+            transform.DOMoveY(10f, 1).SetEase(Ease.InQuad);
             if(team == 1)
             {
                 GameObject.Find("Player1").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());

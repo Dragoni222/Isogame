@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnOrdererScript : MonoBehaviour
 {
     // Start is called before the first frame update
-    int whosTurn;
+   [SerializeField] int whosTurn;
     public bool spawnPhase;
     public bool shopPhase;
     public bool attackPhase;
@@ -27,10 +27,10 @@ public class TurnOrdererScript : MonoBehaviour
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
         unit = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity);
-        unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Warrior", 1);
+        unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Lobber", 1);
         unit.GetComponent<UnitScript>().dead = true;
         unit = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity);
-        unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Warrior", 2);
+        unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Lobber", 2);
         unit.GetComponent<UnitScript>().dead = true;
 
         unit = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity);
@@ -76,6 +76,8 @@ public class TurnOrdererScript : MonoBehaviour
                     AttackPhaseStart(2);
                 else
                     AttackPhaseStart(1);
+                spawnPhase = false;
+
             }
             else if(Player1.unitsToDrop.Count == 0)
             {
@@ -161,7 +163,7 @@ public class TurnOrdererScript : MonoBehaviour
                 player2UnitAlive = false;
             }
 
-            if(!player1UnitAlive && !player2UnitAlive)
+            if(!player1UnitAlive || !player2UnitAlive)
             {
                 //PUT SHOP PHASE START HERE
             }
@@ -217,13 +219,19 @@ public class TurnOrdererScript : MonoBehaviour
         player2UnitAliveTemp = true;
         if (whosTurn == 1)
         {
-            Player1.myTurn = true;
-            Player2.myTurn = false;
-        }
-        else
-        {
+            whosTurn = 2;
+            hasAttacked = false;
+            hasMoved = false;
             Player2.myTurn = true;
+            Player1.myTurn = false;
+        }
+        else if (whosTurn == 2)
+        {
+            whosTurn = 1;
+            hasAttacked = false;
+            hasMoved = false;
             Player2.myTurn = false;
+            Player1.myTurn = true;
         }
     }
 

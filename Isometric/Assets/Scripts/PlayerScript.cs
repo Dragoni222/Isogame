@@ -136,19 +136,40 @@ public class PlayerScript : MonoBehaviour
                             else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.speed) && selectedUnit.boardPosition != hoverTileGeneralScript.boardPos)
                             {
                                 //Clicking on square other than another player or off the board (PUT MOVE METHOD HERE)
-                                if (units.Contains(selectedUnit.GetComponent<UnitScript>()))
+                                if (units.Contains(selectedUnit.GetComponent<UnitScript>()) && !turnOrder.hasMoved )
                                 {
-                                    board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
-                                    selectedUnit.StartCoroutine(selectedUnit.MoveToTile(hoverPath));
-                                    turnOrder.hasMoved = true;
+                                  
+                                    if(hoverPath != null)
+                                    {
+                                        board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
+                                        selectedUnit.StartCoroutine(selectedUnit.MoveToTile(hoverPath));
+                                        turnOrder.hasMoved = true;
+                                        selectedObjectMove = null;
+                                        selectedUnit = null;
+                                        selectedCell = null;
+                                    }
+                                    else
+                                    {
+                                        selectedObjectMove = null;
+                                        selectedUnit = null;
+                                        selectedCell = null;
+                                        Debug.Log("cannot move there");
+                                    }
+
+                                }
+                                else
+                                {
+                                    Debug.Log("not your unit, or you have already moved");
                                     selectedObjectMove = null;
                                     selectedUnit = null;
                                     selectedCell = null;
                                 }
-                                
 
                             }
+
                             selectedObjectMove = hoverTileGeneral;
+                            selectedUnit = null;
+                            selectedCell = null;
                         }
                         else
                         {
@@ -179,7 +200,6 @@ public class PlayerScript : MonoBehaviour
                 }
                 if (Input.GetButtonDown("rightclick"))
                 {
-                    Debug.Log("right click");
                     DehighlightAll(board, "blue");
                     hoverRad = 0;
                     if (selectedObjectMove != null)
@@ -204,12 +224,19 @@ public class PlayerScript : MonoBehaviour
                             else if (selectedUnit != null && InRadius(selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.range))
                             {
                                 //Clicking on square other than another player or off the board (PUT ATTACK METHOD HERE)
-                                if (units.Contains(selectedUnit.GetComponent<UnitScript>()))
+                                if (units.Contains(selectedUnit.GetComponent<UnitScript>()) && !turnOrder.hasAttacked)
                                 {
                                     board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
                                     selectedUnit.Attack(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y);
                                     turnOrder.hasAttacked = true;
                                     DehighlightAll(board, "blue");
+                                    selectedObjectAttack = null;
+                                    selectedUnit = null;
+                                    selectedCell = null;
+                                }
+                                else
+                                {
+                                    Debug.Log("not your unit, or you have alrady attacked");
                                     selectedObjectAttack = null;
                                     selectedUnit = null;
                                     selectedCell = null;
@@ -222,6 +249,8 @@ public class PlayerScript : MonoBehaviour
                         else
                         {
                             selectedObjectAttack = null;
+                            selectedUnit = null;
+                            selectedCell = null;
                         }
 
                     }

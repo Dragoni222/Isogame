@@ -101,6 +101,7 @@ MonoBehaviour:
   smoothMoveProjectile: 17
   smoothMoveLob: 18
   affectedCells: []
+  rb: {fileID: -3031418318514225439}
   speed: 40
   upForce: 1200
   missileExplosion1: {fileID: 334038347314984762, guid: 0b812fa95b09165448bd3ca9dc1b5bdf, type: 3}
