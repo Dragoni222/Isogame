@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class TurnOrdererScript : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -21,8 +21,10 @@ public class TurnOrdererScript : MonoBehaviour
     public bool player2UnitAlive;
     public bool player1UnitAliveTemp;
     public bool player2UnitAliveTemp;
-
-
+    public int player1Score;
+    public int player2Score;
+    public bool endTurn;
+    public GameObject endTurnButton;
     void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
@@ -40,15 +42,18 @@ public class TurnOrdererScript : MonoBehaviour
         unit.GetComponent<UnitScript>().SpawnByClass(new Vector2(0, 0), board, "Ranger", 2);
         unit.GetComponent<UnitScript>().dead = true;
 
+        endTurnButton.GetComponent<Button>().onClick.AddListener(TaskOnClick);
         SpawnPhaseStart(1);
     }
 
     // Update is called once per frame
     void Update()
     {
+     
+
         if (spawnPhase)
         {
-            
+            endTurnButton.SetActive(false);
             if (hasPlaced)
             {
                 if(whosTurn == 1)
@@ -99,7 +104,8 @@ public class TurnOrdererScript : MonoBehaviour
         }
         else if (attackPhase)
         {
-            if(hasAttacked && hasMoved)
+            endTurnButton.SetActive(true);
+            if (endTurn)
             {
                 if(whosTurn == 1)
                 {
@@ -117,6 +123,7 @@ public class TurnOrdererScript : MonoBehaviour
                     Player2.myTurn = false;
                     Player1.myTurn = true;
                 }
+                endTurn = false;
             }
 
 
@@ -163,8 +170,14 @@ public class TurnOrdererScript : MonoBehaviour
                 player2UnitAlive = false;
             }
 
-            if(!player1UnitAlive || !player2UnitAlive)
+            if(!player1UnitAlive)
             {
+                player2Score++;
+                //PUT SHOP PHASE START HERE
+            }
+            if (!player2UnitAlive)
+            {
+                player1Score++;
                 //PUT SHOP PHASE START HERE
             }
 
@@ -235,7 +248,11 @@ public class TurnOrdererScript : MonoBehaviour
         }
     }
 
+    void TaskOnClick()
+    {
 
+       endTurn = true;
+    }
 
 
 }
