@@ -247,7 +247,6 @@ public class PlayerScript : MonoBehaviour
                 {
                     Debug.Log(selectedUnitID);
                     unitsToDrop[selectedUnitID].Respawn(hoverTileGeneralScript.boardPos, board);
-                    unitsToDrop.RemoveAt(selectedUnitID);
                     turnOrder.hasPlaced = true;
                 }
                 if (Input.GetButtonDown("rightclick"))

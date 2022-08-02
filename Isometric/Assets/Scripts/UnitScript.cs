@@ -157,11 +157,13 @@ public class UnitScript : MonoBehaviour
 
     public bool Respawn(Vector2 BoardPos, BoardScript Board)
     {
-        if (CanMoveToTile(board, (int)boardPosition.x, (int)boardPosition.y))
+        dead = false;
+        if (CanMoveToTile(Board, (int)boardPosition.x, (int)boardPosition.y))
         {
+            Debug.Log("here");
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 100f, BoardToRealPos((int)BoardPos.y));
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
-            dead = false;
+           
             hp = maxHP;
             transform.DOMoveY(5.5f, 1).SetEase(Ease.InQuad);
             if(team == 1)
