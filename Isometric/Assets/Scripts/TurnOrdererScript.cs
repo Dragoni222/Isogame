@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class TurnOrdererScript : MonoBehaviour
 {
     // Start is called before the first frame update
-   [SerializeField] int whosTurn;
+    public int whosTurn;
     public bool spawnPhase;
     public bool shopPhase;
     public bool attackPhase;
@@ -25,6 +25,8 @@ public class TurnOrdererScript : MonoBehaviour
     public int player2Score;
     public bool endTurn;
     public GameObject endTurnButton;
+    public Shop shop;
+
     void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
@@ -135,8 +137,8 @@ public class TurnOrdererScript : MonoBehaviour
                 {
                     if (!Unit.dead)
                     {
+                        //Debug.Log("p1");
                         player1UnitAliveTemp = true;
-                        return;
                     }
                 }
             }
@@ -149,16 +151,14 @@ public class TurnOrdererScript : MonoBehaviour
                 player1UnitAlive = false;
             }
 
-
             player2UnitAliveTemp = false;
-            foreach (UnitScript Unit in Player2.units)
+            foreach (UnitScript Unit2 in Player2.units)
             {
-                if (Unit != null)
+                if (Unit2 != null)
                 {
-                    if (!Unit.dead)
+                    if (!Unit2.dead)
                     {
                         player2UnitAliveTemp = true;
-                        return;
                     }
                 }
             }
@@ -174,17 +174,18 @@ public class TurnOrdererScript : MonoBehaviour
             if(!player1UnitAlive)
             {
                 player2Score++;
-                //PUT SHOP PHASE START HERE
+                ShopPhaseStart(1);
             }
             if (!player2UnitAlive)
             {
                 player1Score++;
-                //PUT SHOP PHASE START HERE
+                ShopPhaseStart(2);
             }
 
 
         }
     }
+
 
     public void SpawnPhaseStart(int startPlayer)
     {
@@ -238,13 +239,11 @@ public class TurnOrdererScript : MonoBehaviour
         player2UnitAliveTemp = true;
         foreach (MeshRenderer rendr in board.gameObject.GetComponentsInChildren<MeshRenderer>())
         {
-            Debug.Log(rendr.name);
             if (rendr.gameObject.name == "Wall1" || rendr.gameObject.name == "Wall2")
                 rendr.enabled = false;
         }
         if (whosTurn == 1)
         {
-            whosTurn = 2;
             hasAttacked = false;
             hasMoved = false;
             Player2.myTurn = true;
@@ -252,12 +251,36 @@ public class TurnOrdererScript : MonoBehaviour
         }
         else if (whosTurn == 2)
         {
-            whosTurn = 1;
             hasAttacked = false;
             hasMoved = false;
             Player2.myTurn = false;
             Player1.myTurn = true;
         }
+    }
+
+    public void ShopPhaseStart(int startPlayer)
+    {
+        endTurnButton.SetActive(false);
+        spawnPhase = false;
+        shopPhase = true;
+        attackPhase = false;
+        whosTurn = startPlayer;
+        if (whosTurn == 1)
+        {
+            whosTurn = 2;
+            Player2.myTurn = true;
+            Player1.myTurn = false;
+        }
+        else if (whosTurn == 2)
+        {
+            whosTurn = 1;
+            Player2.myTurn = false;
+            Player1.myTurn = true;
+        }
+
+        shop.ResetShop();
+
+
     }
 
     void TaskOnClick()

@@ -33,7 +33,7 @@ public class Shop : MonoBehaviour
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
         unit1Button.GetComponent<Button>().onClick.AddListener(Unit1Pressed);
         unit2Button.GetComponent<Button>().onClick.AddListener(Unit2Pressed);
-        ResetShop();
+        DestroyShop();
     }
 
     // Update is called once per frame
@@ -157,7 +157,6 @@ public class Shop : MonoBehaviour
 
     void Unit1Pressed()
     {
-        Debug.Log("unit 1 pressd");
         if (player1.myTurn)
         {
             player1.units.Add(unit1);
@@ -171,7 +170,6 @@ public class Shop : MonoBehaviour
     }
     void Unit2Pressed()
     {
-        Debug.Log("unit 2 pressd");
         if (player1.myTurn)
         {
             player1.units.Add(unit2);
