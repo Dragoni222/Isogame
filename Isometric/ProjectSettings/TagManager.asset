@@ -17,6 +17,7 @@ TagManager:
   - Warrior1
   - Warrior2
   - Unit
+  - Upgrade
   layers:
   - Default
   - TransparentFX

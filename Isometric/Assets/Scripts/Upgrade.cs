@@ -16,9 +16,10 @@ public class Upgrade : MonoBehaviour
     public int maxHPMod;
 
     public bool heal;
-    public bool burn;
-    public bool applyToAdjOnDrop;
-    public bool lastStand;
+    public bool hitsSelf;
+    //public bool burn;
+    //public bool applyToAdjOnDrop;
+    //public bool lastStand;
 
 
     public void ApplyUpgrade(UnitScript unit)
@@ -29,10 +30,11 @@ public class Upgrade : MonoBehaviour
         unit.aoeRadius += aoeMod;
         unit.maxHP += maxHPMod;
         unit.hp += maxHPMod;
-
+        unit.hitsSelf = true;
         if (heal)
         {
             unit.damage = -unit.damage;
+            unit.hitsSelf = true;
         }
 
     }
