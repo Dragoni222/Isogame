@@ -16,6 +16,7 @@ TagManager:
   - Lobber2
   - Warrior1
   - Warrior2
+  - Unit
   layers:
   - Default
   - TransparentFX

@@ -7,6 +7,7 @@ public class Upgrade : MonoBehaviour
     // Start is called before the first frame update
     public string Name;
     public string description;
+    public Sprite icon;
 
     public int damageMod;
     public int rangeMod;

@@ -30,9 +30,16 @@ public class UnitScript : MonoBehaviour
     public GameObject missile;
     [SerializeField] GameObject fireFromRanger;
     [SerializeField] GameObject fireFromLobber;
-
-
-
+    public Sprite splashArt;
+    public Sprite WarriorSplash1;
+    public Sprite LobberSplash1;
+    public Sprite RangerSplash1;
+    public Sprite WarriorSplash2;
+    public Sprite LobberSplash2;
+    public Sprite RangerSplash2;
+    //Upgrades
+    public Upgrade upgrade1;
+    public Upgrade upgrade2;
 
     private void Start()
     {
@@ -170,11 +177,27 @@ public class UnitScript : MonoBehaviour
         if(CharClass == "Warrior")
         {
             SpawnBasic(BoardPos, board, CharClass, 9, 2, 2, 9, 1, false, 0,false, Team);
+            if (Team == 1)
+            {
+                splashArt = WarriorSplash1;
+            }
+            else
+            {
+                splashArt = WarriorSplash2;
+            }
         }
-        if (CharClass == "Lobber")
+        else if (CharClass == "Lobber")
         {
             SpawnBasic(BoardPos, board, CharClass, 7, 2, 1, 7, 2, true, 1, true, Team);
-            foreach(MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>() )
+            if(Team == 1)
+            {
+                splashArt = LobberSplash1;
+            }
+            else
+            {
+                splashArt = LobberSplash2;
+            }
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>() )
             {
                 if(rendr.gameObject.tag == "Lobber1" && team == 1)
                 {
@@ -189,9 +212,17 @@ public class UnitScript : MonoBehaviour
             }
             
         }
-        if (CharClass == "Ranger")
+        else if (CharClass == "Ranger")
         {
             SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0,false, Team);
+            if (Team == 1)
+            {
+                splashArt = RangerSplash1;
+            }
+            else
+            {
+                splashArt = RangerSplash2;
+            }
             foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
             {
                 if (rendr.gameObject.tag == "Ranger1" && team == 1)
@@ -206,18 +237,19 @@ public class UnitScript : MonoBehaviour
                 }
             }
         }
+
     }
 
     public bool Respawn(Vector2 BoardPos, BoardScript Board)
     {
-         dead = false;
+        dead = false;
         if (Board.allCells[(int)BoardPos.x,(int)BoardPos.y].GetComponent<CellScript>().occupiedBy == null )
         {
-            boardPosition = BoardPos;
+            
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 150f, BoardToRealPos((int)BoardPos.y));
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
-           
-            hp = maxHP;
+            RebuildUnit(BoardPos, Board);
+
             transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(10f, 0.25f).SetEase(Ease.InQuad); } );
             if (team == 1)
             {
@@ -230,6 +262,16 @@ public class UnitScript : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void RebuildUnit(Vector2 BoardPos, BoardScript Board)
+    {
+        SpawnByClass(BoardPos, board, charClass, team);
+        if(upgrade1 != null)
+            upgrade1.ApplyUpgrade(gameObject.GetComponent<UnitScript>());
+        if (upgrade2 != null)
+            upgrade2.ApplyUpgrade(gameObject.GetComponent<UnitScript>());
+
     }
 
     //math

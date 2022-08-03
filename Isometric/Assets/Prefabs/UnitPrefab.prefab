@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 8970681066864245838}
   m_Layer: 2
   m_Name: UnitPrefab
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,15 @@ MonoBehaviour:
   missile: {fileID: 6429416542110867924, guid: 485e8535510a9464790098b91f4851fd, type: 3}
   fireFromRanger: {fileID: 489131679062181029}
   fireFromLobber: {fileID: 2569108297424218461}
+  splashArt: {fileID: 0}
+  WarriorSplash1: {fileID: -573000125, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
+  LobberSplash1: {fileID: 1552731335, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
+  RangerSplash1: {fileID: 1958224132, guid: 070f567787f051242bd71834933df328, type: 3}
+  WarriorSplash2: {fileID: -1594614235, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
+  LobberSplash2: {fileID: 983227743, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
+  RangerSplash2: {fileID: 386928791, guid: 070f567787f051242bd71834933df328, type: 3}
+  upgrade1: {fileID: 0}
+  upgrade2: {fileID: 0}
 --- !u!1001 &138445925075111924
 PrefabInstance:
   m_ObjectHideFlags: 0
