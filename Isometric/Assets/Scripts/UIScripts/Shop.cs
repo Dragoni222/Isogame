@@ -40,7 +40,22 @@ public class Shop : MonoBehaviour
     void Update()
     {
 
-
+        if (unit1 == null)
+        {
+            unit1Button.transform.parent.gameObject.SetActive(false);
+        }
+        else if (unit1 != null)
+        {
+            unit1Button.transform.parent.gameObject.SetActive(true);
+        }
+        if (unit2 == null)
+        {
+            unit2Button.transform.parent.gameObject.SetActive(false);
+        }
+        else if (unit2 != null)
+        {
+            unit2Button.transform.parent.gameObject.SetActive(true);
+        }
 
         foreach (Image image in GetComponentsInChildren<Image>())
         {
@@ -54,22 +69,7 @@ public class Shop : MonoBehaviour
                 image.sprite = unit2.splashArt;
                 image.preserveAspect = true;
             }
-            if(unit1 == null && image.gameObject.name == "UnitShop1")
-            {
-                image.gameObject.SetActive(false);
-            }
-            else if(unit1 != null && image.gameObject.name == "UnitShop1")
-            {
-                image.gameObject.SetActive(true);
-            }
-            if (unit2 == null && image.gameObject.name == "UnitShop2")
-            {
-                image.gameObject.SetActive(false);
-            }
-            else if (unit2 != null && image.gameObject.name == "UnitShop2")
-            {
-                image.gameObject.SetActive(true);
-            }
+           
 
         }
         foreach (TextMeshProUGUI text in GetComponentsInChildren<TextMeshProUGUI>())
@@ -88,6 +88,8 @@ public class Shop : MonoBehaviour
 
     public void ResetShop()
     {
+        unit1Button.transform.parent.gameObject.SetActive(true);
+        unit2Button.transform.parent.gameObject.SetActive(true);
         foreach (Image image in GetComponentsInChildren<Image>())
         {
             image.enabled = true;

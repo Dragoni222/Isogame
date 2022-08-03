@@ -26,7 +26,7 @@ public class TurnOrdererScript : MonoBehaviour
     public bool endTurn;
     public GameObject endTurnButton;
     public Shop shop;
-
+    [SerializeField] TurnChangeScript turnChanger;
     void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
@@ -61,6 +61,7 @@ public class TurnOrdererScript : MonoBehaviour
             {
                 if(whosTurn == 1)
                 {
+                    turnChanger.ChangeTurn(2);
                     whosTurn = 2;
                     hasPlaced = false;
                     Player2.myTurn = true;
@@ -70,6 +71,7 @@ public class TurnOrdererScript : MonoBehaviour
                 }
                 else
                 {
+                    turnChanger.ChangeTurn(1);
                     whosTurn = 1;
                     hasPlaced = false;
                     Player1.myTurn = true;
@@ -112,6 +114,7 @@ public class TurnOrdererScript : MonoBehaviour
             {
                 if(whosTurn == 1)
                 {
+                    turnChanger.ChangeTurn(2);
                     whosTurn = 2;
                     hasAttacked = false;
                     hasMoved = false;
@@ -120,6 +123,7 @@ public class TurnOrdererScript : MonoBehaviour
                 }
                 else if (whosTurn == 2)
                 {
+                    turnChanger.ChangeTurn(1);
                     whosTurn = 1;
                     hasAttacked = false;
                     hasMoved = false;
@@ -137,7 +141,6 @@ public class TurnOrdererScript : MonoBehaviour
                 {
                     if (!Unit.dead)
                     {
-                        //Debug.Log("p1");
                         player1UnitAliveTemp = true;
                     }
                 }
@@ -246,15 +249,15 @@ public class TurnOrdererScript : MonoBehaviour
         {
             hasAttacked = false;
             hasMoved = false;
-            Player2.myTurn = true;
-            Player1.myTurn = false;
+            Player2.myTurn = false;
+            Player1.myTurn = true;
         }
         else if (whosTurn == 2)
         {
             hasAttacked = false;
             hasMoved = false;
-            Player2.myTurn = false;
-            Player1.myTurn = true;
+            Player2.myTurn = true;
+            Player1.myTurn = false;
         }
     }
 

@@ -100,7 +100,6 @@ public class Statbar : MonoBehaviour
                 {
                     foreach (TextMeshProUGUI text in allTMPS)
                     {
-                        Debug.Log(text.gameObject.name);
                         if (text.gameObject.name == "HealthValue")
                         {
                             text.text = Player2.selectedUnit.hp.ToString() + "/" + Player2.selectedUnit.maxHP.ToString();
