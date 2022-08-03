@@ -174,6 +174,8 @@ public class PlayerScript : MonoBehaviour
                         else
                         {
                             selectedObjectMove = null;
+                            selectedUnit = null;
+                            selectedCell = null;
                         }
 
                     }

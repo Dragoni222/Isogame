@@ -75,10 +75,12 @@ public class UnitScript : MonoBehaviour
             {
                 yield return new WaitUntil(() => canMoveAgain);
             }
+
             if (CanMoveToTile(board, (int)cell.x, (int)cell.y))
             {
                 
                 board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
+                RotateTowardsCell(new Vector2(cell.x, cell.y));
                 transform.DOMove(new Vector3(BoardToRealPos((int)cell.x), 5, BoardToRealPos((int)cell.y)), 0.25f).SetEase(smoothMoveEase).OnComplete(() => { SetValuesAfterMove(board, (int)cell.x, (int)cell.y); });
                 canMoveAgain = false;
             }
@@ -90,6 +92,11 @@ public class UnitScript : MonoBehaviour
         board.allCells[x, y].GetComponent<CellScript>().occupiedBy = gameObject;
         boardPosition = new Vector2(x, y);
         canMoveAgain = true;
+    }
+
+    private void RotateTowardsCell(Vector2 towards)
+    {
+        //transform.DORotateQuaternion(Quaternion.Euler()),0.5f);
     }
 
     //Attacking
@@ -193,12 +200,12 @@ public class UnitScript : MonoBehaviour
         if (Board.allCells[(int)BoardPos.x,(int)BoardPos.y].GetComponent<CellScript>().occupiedBy == null )
         {
             boardPosition = BoardPos;
-            transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 100f, BoardToRealPos((int)BoardPos.y));
+            transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 150f, BoardToRealPos((int)BoardPos.y));
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
            
             hp = maxHP;
-            transform.DOMoveY(10f, 1).SetEase(Ease.InQuad);
-            if(team == 1)
+            transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(10f, 0.25f).SetEase(Ease.InQuad); } );
+            if (team == 1)
             {
                 GameObject.Find("Player1").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());
             }
