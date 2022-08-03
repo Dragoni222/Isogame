@@ -229,7 +229,7 @@ public class PlayerScript : MonoBehaviour
                                 if (units.Contains(selectedUnit.GetComponent<UnitScript>()) && !turnOrder.hasAttacked)
                                 {
                                     board.allCells[(int)selectedUnit.boardPosition.x, (int)selectedUnit.boardPosition.y].GetComponent<CellScript>().highlightedAttack = false;
-                                    selectedUnit.Attack(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y);
+                                    selectedUnit.StartCoroutine(selectedUnit.Attack(board, (int)hoverTileGeneralScript.boardPos.x, (int)hoverTileGeneralScript.boardPos.y));
                                     turnOrder.hasAttacked = true;
                                     DehighlightAll(board, "blue");
                                     selectedObjectAttack = null;
@@ -308,10 +308,14 @@ public class PlayerScript : MonoBehaviour
 
                 if (Input.GetButtonDown("leftclick") && hoverTileGeneral != null)
                 {
-                    if(unitsToDrop[selectedUnitID].Respawn(hoverTileGeneralScript.boardPos, board))
+                    if((hoverTileGeneralScript.boardPos.y < 3 && unitsToDrop[selectedUnitID].team == 1) || (hoverTileGeneralScript.boardPos.y >= 5 && unitsToDrop[selectedUnitID].team == 2))
                     {
-                        turnOrder.hasPlaced = true;
+                        if (unitsToDrop[selectedUnitID].Respawn(hoverTileGeneralScript.boardPos, board))
+                        {
+                            turnOrder.hasPlaced = true;
+                        }
                     }
+
 
                 }
                 if (Input.GetButtonDown("rightclick"))

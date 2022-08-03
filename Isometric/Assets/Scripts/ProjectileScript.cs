@@ -88,4 +88,11 @@ public class ProjectileScript : MonoBehaviour
         
     
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        finalPos = other.GetComponent<UnitScript>().boardPosition;
+        ProjectileHit();
+    }
 }

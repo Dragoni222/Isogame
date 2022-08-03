@@ -28,8 +28,8 @@ public class UnitScript : MonoBehaviour
     bool canMoveAgain = true;
     private BoardScript board;
     public GameObject missile;
-
-   
+    [SerializeField] GameObject fireFromRanger;
+    [SerializeField] GameObject fireFromLobber;
 
 
 
@@ -80,7 +80,13 @@ public class UnitScript : MonoBehaviour
             {
                 
                 board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
-                RotateTowardsCell(new Vector2(cell.x, cell.y));
+
+                RotateTowardsTile(new Vector3(BoardToRealPos((int)cell.x), transform.position.y, BoardToRealPos((int)cell.y)));
+                canMoveAgain = false;
+                while (!canMoveAgain)
+                {
+                    yield return new WaitUntil(() => canMoveAgain);
+                }
                 transform.DOMove(new Vector3(BoardToRealPos((int)cell.x), 5, BoardToRealPos((int)cell.y)), 0.25f).SetEase(smoothMoveEase).OnComplete(() => { SetValuesAfterMove(board, (int)cell.x, (int)cell.y); });
                 canMoveAgain = false;
             }
@@ -94,13 +100,13 @@ public class UnitScript : MonoBehaviour
         canMoveAgain = true;
     }
 
-    private void RotateTowardsCell(Vector2 towards)
+    private void RotateTowardsTile(Vector3 realPosCell)
     {
-        //transform.DORotateQuaternion(Quaternion.Euler()),0.5f);
+        transform.DOLookAt(realPosCell, 0.2f).OnComplete(() => { canMoveAgain = true; });
     }
 
     //Attacking
-    public void Attack(BoardScript board, int x, int y)
+    public IEnumerator Attack(BoardScript board, int x, int y)
     {
         if (!dead)
         {
@@ -118,9 +124,17 @@ public class UnitScript : MonoBehaviour
             }
             List<CellScript> affectedCells = PlayerScript.AllCellsInRadius(board, x, y, aoeRadius, includeCenter);
 
-            Instantiate(missile, transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), affectedCells, gameObject.GetComponent<UnitScript>());
+            RotateTowardsTile(new Vector3(BoardToRealPos(x), transform.position.y, BoardToRealPos(y)));
+            canMoveAgain = false;
+            while (!canMoveAgain)
+            {
+                yield return new WaitUntil(() => canMoveAgain);
+            }
+            if(charClass == "Ranger")
+                Instantiate(missile, fireFromRanger.transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), affectedCells, gameObject.GetComponent<UnitScript>());
+            if (charClass == "Lobber")
+                Instantiate(missile, fireFromLobber.transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x, y, 5), affectedCells, gameObject.GetComponent<UnitScript>());
 
-            
         }
        
     }

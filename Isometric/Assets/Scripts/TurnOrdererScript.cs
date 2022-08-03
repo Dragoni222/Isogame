@@ -53,6 +53,7 @@ public class TurnOrdererScript : MonoBehaviour
 
         if (spawnPhase)
         {
+            
             endTurnButton.SetActive(false);
             if (hasPlaced)
             {
@@ -193,6 +194,11 @@ public class TurnOrdererScript : MonoBehaviour
         whosTurn = startPlayer;
         Player1.unitsToDrop = new List<UnitScript>();
         Player2.unitsToDrop = new List<UnitScript>();
+        foreach (MeshRenderer rendr in board.GetComponentsInChildren<MeshRenderer>())
+        {
+            if (rendr.gameObject.name == "Wall1" || rendr.gameObject.name == "Wall2")
+                rendr.enabled = true;
+        }
         foreach (UnitScript Unit in Player1.units)
         {
             Player1.unitsToDrop.Add(Unit);
@@ -230,6 +236,12 @@ public class TurnOrdererScript : MonoBehaviour
         player2UnitAlive = true;
         player1UnitAliveTemp = true;
         player2UnitAliveTemp = true;
+        foreach (MeshRenderer rendr in board.gameObject.GetComponentsInChildren<MeshRenderer>())
+        {
+            Debug.Log(rendr.name);
+            if (rendr.gameObject.name == "Wall1" || rendr.gameObject.name == "Wall2")
+                rendr.enabled = false;
+        }
         if (whosTurn == 1)
         {
             whosTurn = 2;
