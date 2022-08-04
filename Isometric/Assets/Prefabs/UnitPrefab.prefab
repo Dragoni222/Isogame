@@ -159,6 +159,9 @@ MonoBehaviour:
   WarriorSplash2: {fileID: -1594614235, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
   LobberSplash2: {fileID: 983227743, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
   RangerSplash2: {fileID: 386928791, guid: 070f567787f051242bd71834933df328, type: 3}
+  WarriorSplash3: {fileID: 692294895, guid: d274e889863f4d24ba51520aaa14fbf3, type: 3}
+  LobberSplash3: {fileID: 21300000, guid: c688c94fb4ed97945ad78b9bbb44e123, type: 3}
+  RangerSplash3: {fileID: 709251913, guid: d48df7b44011c5d4a934461be9d53f8f, type: 3}
   upgrade1: {fileID: 0}
   upgrade2: {fileID: 0}
   dropParticles: {fileID: 3218878892240717817, guid: 38061700fdd7aee4aabad0d43217d281, type: 3}

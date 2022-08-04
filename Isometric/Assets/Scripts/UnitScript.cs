@@ -37,25 +37,33 @@ public class UnitScript : MonoBehaviour
     public Sprite WarriorSplash2;
     public Sprite LobberSplash2;
     public Sprite RangerSplash2;
+    public Sprite WarriorSplash3;
+    public Sprite LobberSplash3;
+    public Sprite RangerSplash3;
     //Upgrades
     public Upgrade upgrade1;
     public Upgrade upgrade2;
     //PARTICLES BABEYYYYYY
     public GameObject dropParticles;
+    public TurnOrdererScript turnOrder;
 
     private void Start()
     {
-        board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
-
-        Pathfind(board.allCells, new Vector2(0,1), new Vector2(5,6));
+        turnOrder = GameObject.Find("TurnOrderer").GetComponent<TurnOrdererScript>();
+        board = turnOrder.board;
 
     }
 
     private void Update()
     {
-        if(hp <= 0&& !dead)
+        board = turnOrder.board;
+        if (hp <= 0&& !dead)
         {
-            board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
+            if(board != null)
+            {
+                board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
+            }
+
             dead = true;
             transform.position = new Vector3(0,300,0);
         }
@@ -167,15 +175,16 @@ public class UnitScript : MonoBehaviour
         {
             GameObject.Find("Player1").GetComponent<PlayerScript>().units.Add(gameObject.GetComponent<UnitScript>());
         }
-        else
+        else if(team == 2)
         {
             GameObject.Find("Player2").GetComponent<PlayerScript>().units.Add(gameObject.GetComponent<UnitScript>());
         }
         return true;
     }
 
-    public void SpawnByClass(Vector2 BoardPos, BoardScript board, string CharClass, int Team)
+    public void SpawnByClass(Vector2 BoardPos, string CharClass, int Team)
     {
+        Debug.Log(BoardPos.x +" " + BoardPos.y);
         if(CharClass == "Warrior")
         {
             SpawnBasic(BoardPos, board, CharClass, 9, 2, 2, 9, 1, false, 0,false, Team);
@@ -183,9 +192,13 @@ public class UnitScript : MonoBehaviour
             {
                 splashArt = WarriorSplash1;
             }
-            else
+            else if (Team == 2)
             {
                 splashArt = WarriorSplash2;
+            }
+            else
+            {
+                splashArt = WarriorSplash3;
             }
         }
         else if (CharClass == "Lobber")
@@ -195,9 +208,13 @@ public class UnitScript : MonoBehaviour
             {
                 splashArt = LobberSplash1;
             }
-            else
+            else if(Team == 2)
             {
                 splashArt = LobberSplash2;
+            }
+            else
+            {
+                splashArt = LobberSplash3;
             }
             foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>() )
             {
@@ -221,9 +238,13 @@ public class UnitScript : MonoBehaviour
             {
                 splashArt = RangerSplash1;
             }
-            else
+            else if (Team == 2)
             {
                 splashArt = RangerSplash2;
+            }
+            else
+            {
+                splashArt = RangerSplash3;
             }
             foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
             {
@@ -250,7 +271,7 @@ public class UnitScript : MonoBehaviour
             
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 150f, BoardToRealPos((int)BoardPos.y));
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
-            RebuildUnit(BoardPos, Board);
+            RebuildUnit(BoardPos);
 
             transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(10f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
             if (team == 1)
@@ -266,9 +287,17 @@ public class UnitScript : MonoBehaviour
         return false;
     }
 
-    public void RebuildUnit(Vector2 BoardPos, BoardScript Board)
+    public void RebuildUnit(Vector2 BoardPos)
     {
-        SpawnByClass(BoardPos, board, charClass, team);
+        if(team == 1)
+        {
+            GameObject.Find("Player1").GetComponent<PlayerScript>().units.Remove(gameObject.GetComponent<UnitScript>());
+        }
+        if (team == 2)
+        {
+            GameObject.Find("Player2").GetComponent<PlayerScript>().units.Remove(gameObject.GetComponent<UnitScript>());
+        }
+        SpawnByClass(BoardPos,  charClass, team);
         if(upgrade1 != null)
             upgrade1.ApplyUpgrade(gameObject.GetComponent<UnitScript>());
         if (upgrade2 != null)

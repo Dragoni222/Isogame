@@ -20,6 +20,9 @@ public class PlayerScript : MonoBehaviour
     public List<UnitScript> unitsToDrop;
     public int selectedUnitID = 0;
     public bool myTurn;
+    public int money;
+
+
     TurnOrdererScript turnOrder;
     private void Start()
     {
@@ -30,13 +33,12 @@ public class PlayerScript : MonoBehaviour
         selectedUnit = null;
         selectedCell = null;
         hoveredTile = null;
-        board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
         
     }
     void Update()
     {
 
-
+        board = turnOrder.board;
         if (myTurn)
         {
             hoverTileGeneral = ClickSelect(Camera.main, 0);
@@ -327,7 +329,17 @@ public class PlayerScript : MonoBehaviour
                     
                 }
             }
-            
+            else if (turnOrder.shopPhase)
+            {
+                if (Input.GetButtonDown("rightclick"))
+                {
+                    if (selectedUnitID + 1 < units.Count)
+                        selectedUnitID++;
+                    else
+                        selectedUnitID = 0;
+
+                }
+            }
         }
       
 
@@ -357,10 +369,14 @@ public class PlayerScript : MonoBehaviour
 
         foreach (GameObject cell in board.allCells)
         {
-            if (InRadius(cell.GetComponent<CellScript>().boardPos, new Vector2(x, y), radius))
+            if(board != null)
             {
-                finalList.Add(cell.GetComponent<CellScript>());
+                if (InRadius(cell.GetComponent<CellScript>().boardPos, new Vector2(x, y), radius))
+                {
+                    finalList.Add(cell.GetComponent<CellScript>());
+                }
             }
+          
 
         }
         if (!includeCenter)

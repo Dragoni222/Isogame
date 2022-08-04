@@ -11,14 +11,9 @@ public class PlayerUnits : MonoBehaviour
     public PlayerScript Player1;
     public PlayerScript Player2;
     public Image[] allTMPS;
+    public Sprite transparent;
     public bool isInScene = false;
     [SerializeField] int player;
-    [SerializeField] Sprite Warrior1;
-    [SerializeField] Sprite Warrior2;
-    [SerializeField] Sprite Lobber1;
-    [SerializeField] Sprite Lobber2;
-    [SerializeField] Sprite Ranger1;
-    [SerializeField] Sprite Ranger2;
     void Start()
     {
         allTMPS = GetComponentsInChildren<Image>();
@@ -27,6 +22,7 @@ public class PlayerUnits : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (turnOrder.spawnPhase == true)
         {
             if (Player1.myTurn && player == 1)
@@ -40,10 +36,19 @@ public class PlayerUnits : MonoBehaviour
                         if(Player1.unitsToDrop.Count > 0)
                         {
                             image.sprite = Player1.unitsToDrop[0].splashArt;
+                            if (Player1.selectedUnitID == 0)
+                            {
+                                image.color = new Color(0,255,0);
+                            }
+                            else
+                            {
+                                image.color = new Color(255, 255, 255);
+                            }
                         }
-
-                       
-
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit2Spash")
                     {
@@ -51,7 +56,18 @@ public class PlayerUnits : MonoBehaviour
                         {
                             image.sprite = Player1.unitsToDrop[1].splashArt;
                         }
-                      
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 1)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
 
                     }
                     else if (image.gameObject.name == "Unit3Spash")
@@ -60,8 +76,18 @@ public class PlayerUnits : MonoBehaviour
                         {
                             image.sprite = Player1.unitsToDrop[2].splashArt;
                         }
-                      
-
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 2)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
                     }
                     else if (image.gameObject.name == "Unit4Spash")
                     {
@@ -69,8 +95,18 @@ public class PlayerUnits : MonoBehaviour
                         {
                             image.sprite = Player1.unitsToDrop[3].splashArt;
                         }
-                        
-
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 3)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
                     }
                     else if (image.gameObject.name == "Unit5Spash")
                     {
@@ -78,8 +114,18 @@ public class PlayerUnits : MonoBehaviour
                         {
                             image.sprite = Player1.unitsToDrop[4].splashArt;
                         }
-                      
-
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 4)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
                     }
                     else if (image.gameObject.name == "Unit6Spash")
                     {
@@ -87,68 +133,163 @@ public class PlayerUnits : MonoBehaviour
                         {
                             image.sprite = Player1.unitsToDrop[5].splashArt;
                         }
-                       
 
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 5)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
                     }
                     else if (image.gameObject.name == "Unit1Upgrade1")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 0)
+                        {
+                            if(Player1.unitsToDrop[0].upgrade1 != null)
+                                image.sprite = Player1.unitsToDrop[0].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit1Upgrade2")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 0)
+                        {
+                            if (Player1.unitsToDrop[0].upgrade2 != null)
+                                image.sprite = Player1.unitsToDrop[0].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit2Upgrade1")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 1)
+                        {
+                            if (Player1.unitsToDrop[1].upgrade1 != null)
+                                image.sprite = Player1.unitsToDrop[1].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit2Upgrade2")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 1)
+                        {
+                            if (Player1.unitsToDrop[1].upgrade2 != null)
+                                image.sprite = Player1.unitsToDrop[1].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit3Upgrade1")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 2)
+                        {
+                            if (Player1.unitsToDrop[2].upgrade1 != null)
+                                image.sprite = Player1.unitsToDrop[2].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit3Upgrade2")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 2)
+                        {
+                            if (Player1.unitsToDrop[2].upgrade2 != null)
+                                image.sprite = Player1.unitsToDrop[2].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit4Upgrade1")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 3)
+                        {
+                            if (Player1.unitsToDrop[3].upgrade1 != null)
+                                image.sprite = Player1.unitsToDrop[3].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit4Upgrade2")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 3)
+                        {
+                            if (Player1.unitsToDrop[3].upgrade2 != null)
+                                image.sprite = Player1.unitsToDrop[3].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit5Upgrade1")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 4)
+                        {
+                            if (Player1.unitsToDrop[4].upgrade1 != null)
+                                image.sprite = Player1.unitsToDrop[4].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit5Upgrade2")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 4)
+                        {
+                            if (Player1.unitsToDrop[4].upgrade2 != null)
+                                image.sprite = Player1.unitsToDrop[4].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit6Upgrade1")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 5)
+                        {
+                            if (Player1.unitsToDrop[5].upgrade1 != null)
+                                image.sprite = Player1.unitsToDrop[5].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
                     else if (image.gameObject.name == "Unit6Upgrade2")
                     {
-
-
+                        if (Player1.unitsToDrop.Count > 5)
+                        {
+                            if (Player1.unitsToDrop[5].upgrade2 != null)
+                                image.sprite = Player1.unitsToDrop[5].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
                     }
 
                 }
@@ -159,163 +300,825 @@ public class PlayerUnits : MonoBehaviour
             else if (Player2.myTurn && player == 2)
             {
                 SlideIn();
-                if (Player2.selectedUnit != null)
+                foreach (Image image in allTMPS)
                 {
-                    foreach (Image image in allTMPS)
+                    image.preserveAspect = true;
+                    if (image.gameObject.name == "Unit1Spash")
                     {
-                        image.preserveAspect = true;
-                        if (image.gameObject.name == "Unit1Spash")
+                        if (Player2.unitsToDrop.Count > 0)
                         {
-                            if (Player2.unitsToDrop.Count > 0)
-                            {
-                                if (Player2.unitsToDrop[0].charClass == "Warrior")
-                                    image.sprite = Warrior1;
-                                else if (Player2.unitsToDrop[0].charClass == "Lobber")
-                                    image.sprite = Lobber1;
-                                else if (Player2.unitsToDrop[0].charClass == "Ranger")
-                                    image.sprite = Ranger1;
-                            }
-                           
-
+                            image.sprite = Player2.unitsToDrop[0].splashArt;
                         }
-                        else if (image.gameObject.name == "Unit2Spash")
+                        else
                         {
-                            if (Player2.unitsToDrop.Count > 1)
-                            {
-                                if (Player2.unitsToDrop[1].charClass == "Warrior")
-                                    image.sprite = Warrior1;
-                                else if (Player2.unitsToDrop[1].charClass == "Lobber")
-                                    image.sprite = Lobber1;
-                                else if (Player2.unitsToDrop[1].charClass == "Ranger")
-                                    image.sprite = Ranger1;
-                            }
-                      
-
+                            image.sprite = transparent;
                         }
-                        else if (image.gameObject.name == "Unit3Spash")
+                        if (Player2.selectedUnitID == 0)
                         {
-                            if (Player2.unitsToDrop.Count > 2)
-                            {
-                                if (Player2.unitsToDrop[2].charClass == "Warrior")
-                                    image.sprite = Warrior1;
-                                else if (Player2.unitsToDrop[2].charClass == "Lobber")
-                                    image.sprite = Lobber1;
-                                else if (Player2.unitsToDrop[2].charClass == "Ranger")
-                                    image.sprite = Ranger1;
-                            }
-                        
-
+                            image.color = new Color(0, 255, 0);
                         }
-                        else if (image.gameObject.name == "Unit4Spash")
+                        else
                         {
-                            if (Player2.unitsToDrop.Count > 3)
-                            {
-                                if (Player2.unitsToDrop[3].charClass == "Warrior")
-                                    image.sprite = Warrior1;
-                                else if (Player2.unitsToDrop[3].charClass == "Lobber")
-                                    image.sprite = Lobber1;
-                                else if (Player2.unitsToDrop[3].charClass == "Ranger")
-                                    image.sprite = Ranger1;
-                            }
-                            
-
+                            image.color = new Color(255, 255, 255);
                         }
-                        else if (image.gameObject.name == "Unit5Spash")
+                    }
+                    else if (image.gameObject.name == "Unit2Spash")
+                    {
+                        if (Player2.unitsToDrop.Count > 1)
                         {
-                            if (Player2.unitsToDrop.Count > 4)
-                            {
-                                if (Player2.unitsToDrop[4].charClass == "Warrior")
-                                    image.sprite = Warrior1;
-                                else if (Player2.unitsToDrop[4].charClass == "Lobber")
-                                    image.sprite = Lobber1;
-                                else if (Player2.unitsToDrop[4].charClass == "Ranger")
-                                    image.sprite = Ranger1;
-                            }
-                          
-
+                            image.sprite = Player2.unitsToDrop[1].splashArt;
                         }
-                        else if (image.gameObject.name == "Unit6Spash")
+                        else
                         {
-                            if (Player2.unitsToDrop.Count > 5)
-                            {
-                                if (Player2.unitsToDrop[5].charClass == "Warrior")
-                                    image.sprite = Warrior1;
-                                else if (Player2.unitsToDrop[5].charClass == "Lobber")
-                                    image.sprite = Lobber1;
-                                else if (Player2.unitsToDrop[5].charClass == "Ranger")
-                                    image.sprite = Ranger1;
-                            }
-                          
-
+                            image.sprite = transparent;
                         }
-                        else if (image.gameObject.name == "Unit1Upgrade1")
+                        if (Player2.selectedUnitID == 1)
                         {
-
-
+                            image.color = new Color(0, 255, 0);
                         }
-                        else if (image.gameObject.name == "Unit1Upgrade2")
+                        else
                         {
-
-
+                            image.color = new Color(255, 255, 255);
                         }
-                        else if (image.gameObject.name == "Unit2Upgrade1")
+                    }
+                    else if (image.gameObject.name == "Unit3Spash")
+                    {
+                        if (Player2.unitsToDrop.Count > 2)
                         {
-
-
+                            image.sprite = Player2.unitsToDrop[2].splashArt;
                         }
-                        else if (image.gameObject.name == "Unit2Upgrade2")
+                        else
                         {
-
-
+                            image.sprite = transparent;
                         }
-                        else if (image.gameObject.name == "Unit3Upgrade1")
+                        if (Player2.selectedUnitID == 2)
                         {
-
-
+                            image.color = new Color(0, 255, 0);
                         }
-                        else if (image.gameObject.name == "Unit3Upgrade2")
+                        else
                         {
-
-
+                            image.color = new Color(255, 255, 255);
                         }
-                        else if (image.gameObject.name == "Unit4Upgrade1")
+                    }
+                    else if (image.gameObject.name == "Unit4Spash")
+                    {
+                        if (Player2.unitsToDrop.Count > 3)
                         {
-
-
+                            image.sprite = Player2.unitsToDrop[3].splashArt;
                         }
-                        else if (image.gameObject.name == "Unit4Upgrade2")
+
+                        else
                         {
-
-
+                            image.sprite = transparent;
                         }
-                        else if (image.gameObject.name == "Unit5Upgrade1")
+                        if (Player2.selectedUnitID == 3)
                         {
-
-
+                            image.color = new Color(0, 255, 0);
                         }
-                        else if (image.gameObject.name == "Unit5Upgrade2")
+                        else
                         {
-
-
+                            image.color = new Color(255, 255, 255);
                         }
-                        else if (image.gameObject.name == "Unit6Upgrade1")
+                    }
+                    else if (image.gameObject.name == "Unit5Spash")
+                    {
+                        if (Player2.unitsToDrop.Count > 4)
                         {
-
-
+                            image.sprite = Player2.unitsToDrop[4].splashArt;
                         }
-                        else if (image.gameObject.name == "Unit6Upgrade2")
+                        else
                         {
-
-
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 4)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Spash")
+                    {
+                        if (Player2.unitsToDrop.Count > 5)
+                        {
+                            image.sprite = Player2.unitsToDrop[5].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 5)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
                         }
 
                     }
-                    SlideIn();
+                    else if (image.gameObject.name == "Unit1Upgrade1")
+                    {
+                        if (Player2.unitsToDrop.Count > 0)
+                        {
+                            if (Player2.unitsToDrop[0].upgrade1 != null)
+                                image.sprite = Player2.unitsToDrop[0].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit1Upgrade2")
+                    {
+                        if (Player2.unitsToDrop.Count > 0)
+                        {
+                            if (Player2.unitsToDrop[0].upgrade2 != null)
+                                image.sprite = Player2.unitsToDrop[0].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Upgrade1")
+                    {
+                        if (Player2.unitsToDrop.Count > 1)
+                        {
+                            if (Player2.unitsToDrop[1].upgrade1 != null)
+                                image.sprite = Player2.unitsToDrop[1].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Upgrade2")
+                    {
+                        if (Player2.unitsToDrop.Count > 1)
+                        {
+                            if (Player2.unitsToDrop[1].upgrade2 != null)
+                                image.sprite = Player2.unitsToDrop[1].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Upgrade1")
+                    {
+                        if (Player2.unitsToDrop.Count > 2)
+                        {
+                            if (Player2.unitsToDrop[2].upgrade1 != null)
+                                image.sprite = Player2.unitsToDrop[2].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Upgrade2")
+                    {
+                        if (Player2.unitsToDrop.Count > 2)
+                        {
+                            if (Player2.unitsToDrop[2].upgrade2 != null)
+                                image.sprite = Player2.unitsToDrop[2].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Upgrade1")
+                    {
+                        if (Player2.unitsToDrop.Count > 3)
+                        {
+                            if (Player2.unitsToDrop[3].upgrade1 != null)
+                                image.sprite = Player2.unitsToDrop[3].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Upgrade2")
+                    {
+                        if (Player2.unitsToDrop.Count > 3)
+                        {
+                            if (Player2.unitsToDrop[3].upgrade2 != null)
+                                image.sprite = Player2.unitsToDrop[3].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Upgrade1")
+                    {
+                        if (Player2.unitsToDrop.Count > 4)
+                        {
+                            if (Player2.unitsToDrop[4].upgrade1 != null)
+                                image.sprite = Player2.unitsToDrop[4].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Upgrade2")
+                    {
+                        if (Player2.unitsToDrop.Count > 4)
+                        {
+                            if (Player2.unitsToDrop[4].upgrade2 != null)
+                                image.sprite = Player2.unitsToDrop[4].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Upgrade1")
+                    {
+                        if (Player2.unitsToDrop.Count > 5)
+                        {
+                            if (Player2.unitsToDrop[5].upgrade1 != null)
+                                image.sprite = Player2.unitsToDrop[5].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Upgrade2")
+                    {
+                        if (Player2.unitsToDrop.Count > 5)
+                        {
+                            if (Player2.unitsToDrop[5].upgrade2 != null)
+                                image.sprite = Player2.unitsToDrop[5].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+
                 }
-                else
+                SlideIn();
+
+
+            }
+            else
+            {
+                SlideOut();
+            }
+        }
+        else if (turnOrder.shopPhase)
+        {
+            if (Player1.myTurn && player == 1)
+            {
+                SlideIn();
+                foreach (Image image in allTMPS)
                 {
-                    SlideOut();
+                    image.preserveAspect = true;
+                    if (image.gameObject.name == "Unit1Spash")
+                    {
+                        if (Player1.units.Count > 0)
+                        {
+                            image.sprite = Player1.units[0].splashArt;
+                            if (Player1.selectedUnitID == 0)
+                            {
+                                image.color = new Color(0, 255, 0);
+                            }
+                            else
+                            {
+                                image.color = new Color(255, 255, 255);
+                            }
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Spash")
+                    {
+                        if (Player1.units.Count > 1)
+                        {
+                            image.sprite = Player1.units[1].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 1)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+
+                    }
+                    else if (image.gameObject.name == "Unit3Spash")
+                    {
+                        if (Player1.units.Count > 2)
+                        {
+                            image.sprite = Player1.units[2].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 2)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Spash")
+                    {
+                        if (Player1.units.Count > 3)
+                        {
+                            image.sprite = Player1.units[3].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 3)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Spash")
+                    {
+                        if (Player1.units.Count > 4)
+                        {
+                            image.sprite = Player1.units[4].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 4)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Spash")
+                    {
+                        if (Player1.units.Count > 5)
+                        {
+                            image.sprite = Player1.units[5].splashArt;
+                        }
+
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player1.selectedUnitID == 5)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit1Upgrade1")
+                    {
+                        if (Player1.units.Count > 0)
+                        {
+                            if (Player1.units[0].upgrade1 != null)
+                                image.sprite = Player1.units[0].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit1Upgrade2")
+                    {
+                        if (Player1.units.Count > 0)
+                        {
+                            if (Player1.units[0].upgrade2 != null)
+                                image.sprite = Player1.units[0].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Upgrade1")
+                    {
+                        if (Player1.units.Count > 1)
+                        {
+                            if (Player1.units[1].upgrade1 != null)
+                                image.sprite = Player1.units[1].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Upgrade2")
+                    {
+                        if (Player1.units.Count > 1)
+                        {
+                            if (Player1.units[1].upgrade2 != null)
+                                image.sprite = Player1.units[1].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Upgrade1")
+                    {
+                        if (Player1.units.Count > 2)
+                        {
+                            if (Player1.units[2].upgrade1 != null)
+                                image.sprite = Player1.units[2].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Upgrade2")
+                    {
+                        if (Player1.units.Count > 2)
+                        {
+                            if (Player1.units[2].upgrade2 != null)
+                                image.sprite = Player1.units[2].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Upgrade1")
+                    {
+                        if (Player1.units.Count > 3)
+                        {
+                            if (Player1.units[3].upgrade1 != null)
+                                image.sprite = Player1.units[3].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Upgrade2")
+                    {
+                        if (Player1.units.Count > 3)
+                        {
+                            if (Player1.units[3].upgrade2 != null)
+                                image.sprite = Player1.units[3].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Upgrade1")
+                    {
+                        if (Player1.units.Count > 4)
+                        {
+                            if (Player1.units[4].upgrade1 != null)
+                                image.sprite = Player1.units[4].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Upgrade2")
+                    {
+                        if (Player1.units.Count > 4)
+                        {
+                            if (Player1.units[4].upgrade2 != null)
+                                image.sprite = Player1.units[4].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Upgrade1")
+                    {
+                        if (Player1.units.Count > 5)
+                        {
+                            if (Player1.units[5].upgrade1 != null)
+                                image.sprite = Player1.units[5].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Upgrade2")
+                    {
+                        if (Player1.units.Count > 5)
+                        {
+                            if (Player1.units[5].upgrade2 != null)
+                                image.sprite = Player1.units[5].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+
                 }
+                SlideIn();
+
+
+            }
+            else if (Player2.myTurn && player == 2)
+            {
+                SlideIn();
+                foreach (Image image in allTMPS)
+                {
+                    image.preserveAspect = true;
+                    if (image.gameObject.name == "Unit1Spash")
+                    {
+                        if (Player2.units.Count > 0)
+                        {
+                            image.sprite = Player2.units[0].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 0)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Spash")
+                    {
+                        if (Player2.units.Count > 1)
+                        {
+                            image.sprite = Player2.units[1].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 1)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Spash")
+                    {
+                        if (Player2.units.Count > 2)
+                        {
+                            image.sprite = Player2.units[2].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 2)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Spash")
+                    {
+                        if (Player2.units.Count > 3)
+                        {
+                            image.sprite = Player2.units[3].splashArt;
+                        }
+
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 3)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Spash")
+                    {
+                        if (Player2.units.Count > 4)
+                        {
+                            image.sprite = Player2.units[4].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 4)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Spash")
+                    {
+                        if (Player2.units.Count > 5)
+                        {
+                            image.sprite = Player2.units[5].splashArt;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                        if (Player2.selectedUnitID == 5)
+                        {
+                            image.color = new Color(0, 255, 0);
+                        }
+                        else
+                        {
+                            image.color = new Color(255, 255, 255);
+                        }
+
+                    }
+                    else if (image.gameObject.name == "Unit1Upgrade1")
+                    {
+                        if (Player2.units.Count > 0)
+                        {
+                            if (Player2.units[0].upgrade1 != null)
+                                image.sprite = Player2.units[0].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit1Upgrade2")
+                    {
+                        if (Player2.units.Count > 0)
+                        {
+                            if (Player2.units[0].upgrade2 != null)
+                                image.sprite = Player2.units[0].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Upgrade1")
+                    {
+                        if (Player2.units.Count > 1)
+                        {
+                            if (Player2.units[1].upgrade1 != null)
+                                image.sprite = Player2.units[1].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit2Upgrade2")
+                    {
+                        if (Player2.units.Count > 1)
+                        {
+                            if (Player2.units[1].upgrade2 != null)
+                                image.sprite = Player2.units[1].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Upgrade1")
+                    {
+                        if (Player2.units.Count > 2)
+                        {
+                            if (Player2.units[2].upgrade1 != null)
+                                image.sprite = Player2.units[2].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit3Upgrade2")
+                    {
+                        if (Player2.units.Count > 2)
+                        {
+                            if (Player2.units[2].upgrade2 != null)
+                                image.sprite = Player2.units[2].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Upgrade1")
+                    {
+                        if (Player2.units.Count > 3)
+                        {
+                            if (Player2.units[3].upgrade1 != null)
+                                image.sprite = Player2.units[3].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit4Upgrade2")
+                    {
+                        if (Player2.units.Count > 3)
+                        {
+                            if (Player2.units[3].upgrade2 != null)
+                                image.sprite = Player2.units[3].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Upgrade1")
+                    {
+                        if (Player2.units.Count > 4)
+                        {
+                            if (Player2.units[4].upgrade1 != null)
+                                image.sprite = Player2.units[4].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit5Upgrade2")
+                    {
+                        if (Player2.units.Count > 4)
+                        {
+                            if (Player2.units[4].upgrade2 != null)
+                                image.sprite = Player2.units[4].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Upgrade1")
+                    {
+                        if (Player2.units.Count > 5)
+                        {
+                            if (Player2.units[5].upgrade1 != null)
+                                image.sprite = Player2.units[5].upgrade1.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+                    else if (image.gameObject.name == "Unit6Upgrade2")
+                    {
+                        if (Player2.units.Count > 5)
+                        {
+                            if (Player2.units[5].upgrade2 != null)
+                                image.sprite = Player2.units[5].upgrade2.icon;
+                        }
+                        else
+                        {
+                            image.sprite = transparent;
+                        }
+                    }
+
+                }
+                SlideIn();
+
+
             }
             else
             {
