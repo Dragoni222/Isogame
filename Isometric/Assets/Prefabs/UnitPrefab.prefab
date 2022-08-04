@@ -161,6 +161,7 @@ MonoBehaviour:
   RangerSplash2: {fileID: 386928791, guid: 070f567787f051242bd71834933df328, type: 3}
   upgrade1: {fileID: 0}
   upgrade2: {fileID: 0}
+  dropParticles: {fileID: 3218878892240717817, guid: 38061700fdd7aee4aabad0d43217d281, type: 3}
 --- !u!1001 &138445925075111924
 PrefabInstance:
   m_ObjectHideFlags: 0

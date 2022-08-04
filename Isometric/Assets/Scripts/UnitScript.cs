@@ -40,6 +40,8 @@ public class UnitScript : MonoBehaviour
     //Upgrades
     public Upgrade upgrade1;
     public Upgrade upgrade2;
+    //PARTICLES BABEYYYYYY
+    public GameObject dropParticles;
 
     private void Start()
     {
@@ -250,7 +252,7 @@ public class UnitScript : MonoBehaviour
             board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
             RebuildUnit(BoardPos, Board);
 
-            transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(10f, 0.25f).SetEase(Ease.InQuad); } );
+            transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(10f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
             if (team == 1)
             {
                 GameObject.Find("Player1").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());
