@@ -369,7 +369,7 @@ public class PlayerScript : MonoBehaviour
 
         foreach (GameObject cell in board.allCells)
         {
-            if(board != null)
+            if(board != null && cell != null)
             {
                 if (InRadius(cell.GetComponent<CellScript>().boardPos, new Vector2(x, y), radius))
                 {

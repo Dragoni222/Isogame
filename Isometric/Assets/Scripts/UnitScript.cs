@@ -200,6 +200,19 @@ public class UnitScript : MonoBehaviour
             {
                 splashArt = WarriorSplash3;
             }
+            foreach (MeshRenderer rendr in GetComponentsInChildren<MeshRenderer>())
+            {
+                if (rendr.gameObject.tag == "Warrior1" && team == 1)
+                {
+                    rendr.enabled = true;
+                    return;
+                }
+                if (rendr.gameObject.tag == "Warrior2" && team == 2)
+                {
+                    rendr.enabled = true;
+                    return;
+                }
+            }
         }
         else if (CharClass == "Lobber")
         {

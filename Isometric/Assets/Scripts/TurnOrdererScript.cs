@@ -199,16 +199,16 @@ public class TurnOrdererScript : MonoBehaviour
         }
         else if (shopPhase)
         {
-            if(Player1.money <= 0 && whosTurn == 1)
+            if((Player1.money <= 0||endTurn) && whosTurn == 1)
             {
                 hasBought = true;
             }
-            else if (Player2.money <= 0 && whosTurn == 2)
+            else if ((Player2.money <= 0||endTurn) && whosTurn == 2)
             {
                 hasBought = true;
             }
 
-            if (Player1.money <= 0 && Player2.money <= 0)
+            if ((Player1.money <= 0 && Player2.money <= 0) || ( (Player2.money <= 0 || endTurn) && whosTurn == 2 && Player1.money <= 0) || ((Player1.money <= 0 || endTurn) && whosTurn == 1 && Player2.money <= 0))
             {
                 SpawnPhaseStart(whosTurn,false);
             }
@@ -327,7 +327,7 @@ public class TurnOrdererScript : MonoBehaviour
 
     public void ShopPhaseStart(int startPlayer)
     {
-        endTurnButton.SetActive(false);
+        endTurnButton.SetActive(true);
         spawnPhase = false;
         shopPhase = true;
         attackPhase = false;
