@@ -27,13 +27,17 @@ public class Shop : MonoBehaviour
 
     [SerializeField] GameObject unitPrefab;
     BoardScript board;
+    GameObject[] allUpgrades;
 
     void Start()
     {
         board = GameObject.FindGameObjectWithTag("Board").GetComponent<BoardScript>();
         unit1Button.GetComponent<Button>().onClick.AddListener(Unit1Pressed);
         unit2Button.GetComponent<Button>().onClick.AddListener(Unit2Pressed);
+        allUpgrades = GameObject.FindGameObjectsWithTag("Upgrade");
         DestroyShop();
+
+
     }
 
     // Update is called once per frame
@@ -56,6 +60,42 @@ public class Shop : MonoBehaviour
         {
             unit2Button.transform.parent.gameObject.SetActive(true);
         }
+        if (upgrade1 == null)
+        {
+            upgrade1Button.transform.parent.gameObject.SetActive(false);
+        }
+        else if (upgrade1 != null)
+        {
+            upgrade1Button.transform.parent.gameObject.SetActive(true);
+        }
+        if (upgrade2 == null)
+        {
+            upgrade2Button.transform.parent.gameObject.SetActive(false);
+        }
+        else if (upgrade2 != null)
+        {
+            upgrade2Button.transform.parent.gameObject.SetActive(true);
+        }
+        if (upgrade3 == null)
+        {
+            upgrade3Button.transform.parent.gameObject.SetActive(false);
+        }
+        else if (upgrade3 != null)
+        {
+            upgrade3Button.transform.parent.gameObject.SetActive(true);
+        }
+        if (upgrade4 == null)
+        {
+            upgrade4Button.transform.parent.gameObject.SetActive(false);
+        }
+        else if (upgrade4 != null)
+        {
+            upgrade4Button.transform.parent.gameObject.SetActive(true);
+        }
+
+
+
+
 
         foreach (Image image in GetComponentsInChildren<Image>())
         {
@@ -104,6 +144,21 @@ public class Shop : MonoBehaviour
             else if (text.gameObject.name == "UpgradeText1" && upgrade1 != null)
             {
                 text.text = upgrade1.description;
+
+            }
+            else if (text.gameObject.name == "UpgradeText2" && upgrade1 != null)
+            {
+                text.text = upgrade2.description;
+
+            }
+            else if (text.gameObject.name == "UpgradeText3" && upgrade1 != null)
+            {
+                text.text = upgrade3.description;
+
+            }
+            else if (text.gameObject.name == "UpgradeText4" && upgrade1 != null)
+            {
+                text.text = upgrade4.description;
 
             }
         }
@@ -158,6 +213,20 @@ public class Shop : MonoBehaviour
             unit2 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
             unit2.SpawnByClass(new Vector2(0, 0), board, "Ranger", 0);
         }
+
+
+        int randomItem1 = Random.Range(0, allUpgrades.Length);
+        upgrade1 = allUpgrades[randomItem1].GetComponent<Upgrade>();
+        int randomItem2 = Random.Range(0, allUpgrades.Length);
+        upgrade2 = allUpgrades[randomItem1].GetComponent<Upgrade>();
+        int randomItem3 = Random.Range(0, allUpgrades.Length);
+        upgrade3 = allUpgrades[randomItem1].GetComponent<Upgrade>();
+        int randomItem4 = Random.Range(0, allUpgrades.Length);
+        upgrade4 = allUpgrades[randomItem1].GetComponent<Upgrade>();
+
+
+
+
 
     }
 

@@ -2769,12 +2769,12 @@ MonoBehaviour:
   allTMPS: []
   isInScene: 0
   player: 1
-  Warrior1: {fileID: 0}
-  Warrior2: {fileID: 0}
-  Lobber1: {fileID: 0}
-  Lobber2: {fileID: 0}
-  Ranger1: {fileID: 0}
-  Ranger2: {fileID: 0}
+  Warrior1: {fileID: -573000125, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
+  Warrior2: {fileID: -1594614235, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
+  Lobber1: {fileID: 1552731335, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
+  Lobber2: {fileID: 983227743, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
+  Ranger1: {fileID: 1958224132, guid: 070f567787f051242bd71834933df328, type: 3}
+  Ranger2: {fileID: 386928791, guid: 070f567787f051242bd71834933df328, type: 3}
 --- !u!1 &429124315
 GameObject:
   m_ObjectHideFlags: 0
@@ -7109,12 +7109,12 @@ MonoBehaviour:
   allTMPS: []
   isInScene: 0
   player: 2
-  Warrior1: {fileID: 0}
-  Warrior2: {fileID: 0}
-  Lobber1: {fileID: 0}
-  Lobber2: {fileID: 0}
-  Ranger1: {fileID: 0}
-  Ranger2: {fileID: 0}
+  Warrior1: {fileID: -573000125, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
+  Warrior2: {fileID: -1594614235, guid: 136c71bfefca4de4ebb92e94ad43015a, type: 3}
+  Lobber1: {fileID: 1552731335, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
+  Lobber2: {fileID: 983227743, guid: 321ca607fac6bdd4080bd3e42da6004e, type: 3}
+  Ranger1: {fileID: 1958224132, guid: 070f567787f051242bd71834933df328, type: 3}
+  Ranger2: {fileID: 386928791, guid: 070f567787f051242bd71834933df328, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -14780,7 +14780,7 @@ GameObject:
   - component: {fileID: 2055451317}
   - component: {fileID: 2055451316}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Cost4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

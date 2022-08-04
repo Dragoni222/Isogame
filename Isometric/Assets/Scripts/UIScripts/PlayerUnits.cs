@@ -34,17 +34,12 @@ public class PlayerUnits : MonoBehaviour
                 SlideIn();
                 foreach (Image image in allTMPS)
                 {
-
+                    image.preserveAspect = true;
                     if (image.gameObject.name == "Unit1Spash")
                     {
                         if(Player1.unitsToDrop.Count > 0)
                         {
-                            if (Player1.unitsToDrop[0].charClass == "Warrior")
-                                image.sprite = Warrior1;
-                            else if (Player1.unitsToDrop[0].charClass == "Lobber")
-                                image.sprite = Lobber1;
-                            else if (Player1.unitsToDrop[0].charClass == "Ranger")
-                                image.sprite = Ranger1;
+                            image.sprite = Player1.unitsToDrop[0].splashArt;
                         }
 
                        
@@ -54,12 +49,7 @@ public class PlayerUnits : MonoBehaviour
                     {
                         if (Player1.unitsToDrop.Count > 1)
                         {
-                            if (Player1.unitsToDrop[1].charClass == "Warrior")
-                                image.sprite = Warrior1;
-                            else if (Player1.unitsToDrop[1].charClass == "Lobber")
-                                image.sprite = Lobber1;
-                            else if (Player1.unitsToDrop[1].charClass == "Ranger")
-                                image.sprite = Ranger1;
+                            image.sprite = Player1.unitsToDrop[1].splashArt;
                         }
                       
 
@@ -68,12 +58,7 @@ public class PlayerUnits : MonoBehaviour
                     {
                         if (Player1.unitsToDrop.Count > 2)
                         {
-                            if (Player1.unitsToDrop[2].charClass == "Warrior")
-                                image.sprite = Warrior1;
-                            else if (Player1.unitsToDrop[2].charClass == "Lobber")
-                                image.sprite = Lobber1;
-                            else if (Player1.unitsToDrop[2].charClass == "Ranger")
-                                image.sprite = Ranger1;
+                            image.sprite = Player1.unitsToDrop[2].splashArt;
                         }
                       
 
@@ -82,12 +67,7 @@ public class PlayerUnits : MonoBehaviour
                     {
                         if (Player1.unitsToDrop.Count > 3)
                         {
-                            if (Player1.unitsToDrop[3].charClass == "Warrior")
-                                image.sprite = Warrior1;
-                            else if (Player1.unitsToDrop[3].charClass == "Lobber")
-                                image.sprite = Lobber1;
-                            else if (Player1.unitsToDrop[3].charClass == "Ranger")
-                                image.sprite = Ranger1;
+                            image.sprite = Player1.unitsToDrop[3].splashArt;
                         }
                         
 
@@ -96,12 +76,7 @@ public class PlayerUnits : MonoBehaviour
                     {
                         if (Player1.unitsToDrop.Count > 4)
                         {
-                            if (Player1.unitsToDrop[4].charClass == "Warrior")
-                                image.sprite = Warrior1;
-                            else if (Player1.unitsToDrop[4].charClass == "Lobber")
-                                image.sprite = Lobber1;
-                            else if (Player1.unitsToDrop[4].charClass == "Ranger")
-                                image.sprite = Ranger1;
+                            image.sprite = Player1.unitsToDrop[4].splashArt;
                         }
                       
 
@@ -110,12 +85,7 @@ public class PlayerUnits : MonoBehaviour
                     {
                         if (Player1.unitsToDrop.Count > 5)
                         {
-                            if (Player1.unitsToDrop[5].charClass == "Warrior")
-                                image.sprite = Warrior1;
-                            else if (Player1.unitsToDrop[5].charClass == "Lobber")
-                                image.sprite = Lobber1;
-                            else if (Player1.unitsToDrop[5].charClass == "Ranger")
-                                image.sprite = Ranger1;
+                            image.sprite = Player1.unitsToDrop[5].splashArt;
                         }
                        
 
@@ -193,6 +163,7 @@ public class PlayerUnits : MonoBehaviour
                 {
                     foreach (Image image in allTMPS)
                     {
+                        image.preserveAspect = true;
                         if (image.gameObject.name == "Unit1Spash")
                         {
                             if (Player2.unitsToDrop.Count > 0)
