@@ -23,28 +23,44 @@ public class Actions : MonoBehaviour
             SlideIn();
             if (Player1.myTurn)
             {
+                if(Player1.selectedUnit == null)
+                {
+                    SlideOut();
+                }
+                else
+                {
+                    SlideIn();
+                }
                 foreach (TextMeshProUGUI text in allTMPS)
                 {
                     if (text.gameObject.name == "P1/P2Actions")
                     {
-                        text.text = "Player 1 (Orange)";
+                        if(Player1.selectedUnit != null)
+                            text.text = Player1.selectedUnit.charClass;
                     }
                     else if (text.gameObject.name == "Move")
                     {
 
                         text.text = "Move";
-                        if (turnOrder.hasMoved)
-                            text.color = new Color(255,0,0);
-                        else
-                            text.color = new Color(0, 255, 0);
+                        if(Player1.selectedUnit != null)
+                        {
+                            if (Player1.selectedUnit.hasMoved)
+                                text.color = new Color(255, 0, 0);
+                            else
+                                text.color = new Color(0, 255, 0);
+                        }
+                        
                     }
                     else if (text.gameObject.name == "Attack or Extra Move")
                     {
-                        text.text = "Attack or Extra Move";
-                        if (turnOrder.hasAttacked)
-                            text.color = new Color(255, 0, 0);
-                        else
-                            text.color = new Color(0, 255, 0);
+                        text.text = "Attack";
+                        if (Player1.selectedUnit != null)
+                        {
+                            if (Player1.selectedUnit.hasAttacked)
+                                text.color = new Color(255, 0, 0);
+                            else
+                                text.color = new Color(0, 255, 0);
+                        }
                     }
 
 
@@ -52,28 +68,45 @@ public class Actions : MonoBehaviour
             }
             if (Player2.myTurn)
             {
+                if (Player2.selectedUnit == null)
+                {
+                    SlideOut();
+                }
+                else
+                {
+                    SlideIn();
+                }
                 foreach (TextMeshProUGUI text in allTMPS)
                 {
 
                     if (text.gameObject.name == "P1/P2Actions")
                     {
-                        text.text = "Player 2 (Green)";
+                        if (Player1.selectedUnit != null)
+                            text.text = Player1.selectedUnit.charClass;
                     }
                     else if (text.gameObject.name == "Move")
                     {
                         text.text = "Move";
-                        if (turnOrder.hasMoved)
-                            text.color = new Color(255, 0, 0);
-                        else
-                            text.color = new Color(0, 255, 0);
+                        if(Player2.selectedUnit != null)
+                        {
+                            if (Player2.selectedUnit.hasMoved)
+                                text.color = new Color(255, 0, 0);
+                            else
+                                text.color = new Color(0, 255, 0);
+                        }
+            
                     }
                     else if (text.gameObject.name == "Attack or Extra Move")
                     {
-                        text.text = "Attack or Extra Move";
-                        if (turnOrder.hasAttacked)
-                            text.color = new Color(255, 0, 0);
-                        else
-                            text.color = new Color(0, 255, 0);
+                        text.text = "Attack";
+                        if (Player2.selectedUnit != null)
+                        {
+                            if (Player2.selectedUnit.hasAttacked)
+                                text.color = new Color(255, 0, 0);
+                            else
+                                text.color = new Color(0, 255, 0);
+                        }
+                            
                     }
 
 
@@ -155,7 +188,7 @@ public class Actions : MonoBehaviour
     void SlideOut()
     {
         if (isInScene)
-            GetComponent<RectTransform>().DOMoveX(2300, 0.1f);
+            GetComponent<RectTransform>().DOMoveX(2400, 0.1f);
         isInScene = false;
     }
 

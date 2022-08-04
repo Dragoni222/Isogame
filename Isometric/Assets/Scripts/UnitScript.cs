@@ -47,6 +47,11 @@ public class UnitScript : MonoBehaviour
     public GameObject dropParticles;
     public TurnOrdererScript turnOrder;
 
+    public bool hasMoved;
+    public bool hasAttacked;
+
+
+
     private void Start()
     {
         turnOrder = GameObject.Find("TurnOrderer").GetComponent<TurnOrdererScript>();
@@ -128,17 +133,9 @@ public class UnitScript : MonoBehaviour
         if (!dead)
         {
             bool includeCenter;
-            if (charClass == "Warrior" && aoeRadius > 0)
-            {
-                includeCenter = false;
-                x = (int)boardPosition.x;
-                y = (int)boardPosition.y;
-            }
 
-            else
-            {
                 includeCenter = true;
-            }
+            
             List<CellScript> affectedCells = PlayerScript.AllCellsInRadius(board, x, y, aoeRadius, includeCenter);
 
             RotateTowardsTile(new Vector3(BoardToRealPos(x), transform.position.y, BoardToRealPos(y)));
@@ -147,10 +144,11 @@ public class UnitScript : MonoBehaviour
             {
                 yield return new WaitUntil(() => canMoveAgain);
             }
-            if(charClass == "Ranger")
-                Instantiate(missile, fireFromRanger.transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), affectedCells, gameObject.GetComponent<UnitScript>());
+
+            if(charClass == "Ranger" || charClass == "Warrior")
+                Instantiate(missile, fireFromRanger.transform.position, Quaternion.LookRotation(new Vector3(BoardToRealPos(x), transform.position.y, BoardToRealPos(y)) - transform.position)).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x,y,5), affectedCells, gameObject.GetComponent<UnitScript>());
             if (charClass == "Lobber")
-                Instantiate(missile, fireFromLobber.transform.position, Quaternion.identity).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x, y, 5), affectedCells, gameObject.GetComponent<UnitScript>());
+                Instantiate(missile, fireFromLobber.transform.position, Quaternion.LookRotation(new Vector3(BoardToRealPos(x), transform.position.y, BoardToRealPos(y)) - transform.position)).GetComponent<ProjectileScript>().SetSpawnValues(new Vector3(x, y, 5), affectedCells, gameObject.GetComponent<UnitScript>());
 
         }
        
@@ -184,7 +182,6 @@ public class UnitScript : MonoBehaviour
 
     public void SpawnByClass(Vector2 BoardPos, string CharClass, int Team)
     {
-        Debug.Log(BoardPos.x +" " + BoardPos.y);
         if(CharClass == "Warrior")
         {
             SpawnBasic(BoardPos, board, CharClass, 9, 2, 2, 9, 1, false, 0,false, Team);
@@ -273,6 +270,10 @@ public class UnitScript : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            SpawnBasic(BoardPos, board, CharClass, 5, 0, 0, 5, 0, false, 0, false, -1);
+        }
 
     }
 
@@ -283,10 +284,10 @@ public class UnitScript : MonoBehaviour
         {
             
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 150f, BoardToRealPos((int)BoardPos.y));
-            board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
+            Board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
             RebuildUnit(BoardPos);
 
-            transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(10f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
+            transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(9f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
             if (team == 1)
             {
                 GameObject.Find("Player1").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());

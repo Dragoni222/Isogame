@@ -10,8 +10,6 @@ public class TurnOrdererScript : MonoBehaviour
     public bool shopPhase;
     public bool attackPhase;
     public PlayerScript Player1;
-    public bool hasMoved;
-    public bool hasAttacked;
     public bool hasPlaced;
     public bool hasBought;
     public PlayerScript Player2;
@@ -122,8 +120,7 @@ public class TurnOrdererScript : MonoBehaviour
                 {
                     turnChanger.ChangeTurn(2);
                     whosTurn = 2;
-                    hasAttacked = false;
-                    hasMoved = false;
+                    AllHasPlayed();
                     Player2.myTurn = true;
                     Player1.myTurn = false;
                 }
@@ -131,8 +128,7 @@ public class TurnOrdererScript : MonoBehaviour
                 {
                     turnChanger.ChangeTurn(1);
                     whosTurn = 1;
-                    hasAttacked = false;
-                    hasMoved = false;
+                    AllHasPlayed();
                     Player2.myTurn = false;
                     Player1.myTurn = true;
                 }
@@ -311,15 +307,13 @@ public class TurnOrdererScript : MonoBehaviour
         }
         if (whosTurn == 1)
         {
-            hasAttacked = false;
-            hasMoved = false;
+            AllHasPlayed();
             Player2.myTurn = false;
             Player1.myTurn = true;
         }
         else if (whosTurn == 2)
         {
-            hasAttacked = false;
-            hasMoved = false;
+            AllHasPlayed();
             Player2.myTurn = true;
             Player1.myTurn = false;
         }
@@ -356,5 +350,17 @@ public class TurnOrdererScript : MonoBehaviour
        endTurn = true;
     }
 
-
+    void AllHasPlayed()
+    {
+        foreach (UnitScript unit in Player1.units)
+        {
+            unit.hasMoved = false;
+            unit.hasAttacked = false;
+        }
+        foreach (UnitScript unit in Player2.units)
+        {
+            unit.hasMoved = false;
+            unit.hasAttacked = false;
+        }
+    }
 }
