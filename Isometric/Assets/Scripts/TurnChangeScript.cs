@@ -14,13 +14,13 @@ public class TurnChangeScript : MonoBehaviour
         {
             GetComponent<Image>().sprite = Player1Sprite;
             GetComponentInChildren<TextMeshProUGUI>().text = "Player 1's Turn!";
-            GetComponent<RectTransform>().DOMoveX(1000, 0.5f).SetEase(Ease.OutQuad).OnComplete(() => { GetComponent<RectTransform>().DOMoveX(-2000, 0.5f).SetEase(Ease.InQuad); });
+            GetComponent<RectTransform>().DOMoveX(1000, 0.8f).SetEase(Ease.OutQuad).OnComplete(() => { GetComponent<RectTransform>().DOMoveX(-2000, 0.8f).SetEase(Ease.InQuad); });
         }
         if (player == 2)
         {
             GetComponent<Image>().sprite = Player2Sprite;
             GetComponentInChildren<TextMeshProUGUI>().text = "Player 2's Turn!";
-            GetComponent<RectTransform>().DOMoveX(1000, 0.5f).SetEase(Ease.OutQuad).OnComplete(() => { GetComponent<RectTransform>().DOMoveX(4000, 0.5f).SetEase(Ease.InQuad); });
+            GetComponent<RectTransform>().DOMoveX(1000, 0.8f).SetEase(Ease.OutQuad).OnComplete(() => { GetComponent<RectTransform>().DOMoveX(4000, 0.8f).SetEase(Ease.InQuad); });
         }
     }
 }

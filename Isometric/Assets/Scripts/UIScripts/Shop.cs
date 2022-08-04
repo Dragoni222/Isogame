@@ -16,10 +16,10 @@ public class Shop : MonoBehaviour
     [SerializeField] Button upgrade3Button;
     [SerializeField] Button upgrade4Button;
 
-    Upgrade upgarde1;
-    Upgrade upgarde2;
-    Upgrade upgarde3;
-    Upgrade upgarde4;
+    Upgrade upgrade1;
+    Upgrade upgrade2;
+    Upgrade upgrade3;
+    Upgrade upgrade4;
 
     [SerializeField] PlayerScript player1;
     [SerializeField] PlayerScript player2;
@@ -69,7 +69,26 @@ public class Shop : MonoBehaviour
                 image.sprite = unit2.splashArt;
                 image.preserveAspect = true;
             }
-           
+            else if(image.gameObject.name == "Image1" && upgrade1 != null)
+            {
+                image.sprite = upgrade1.icon;
+                image.preserveAspect = true;
+            }
+            else if (image.gameObject.name == "Image2" && upgrade1 != null)
+            {
+                image.sprite = upgrade2.icon;
+                image.preserveAspect = true;
+            }
+            else if (image.gameObject.name == "Image3" && upgrade1 != null)
+            {
+                image.sprite = upgrade3.icon;
+                image.preserveAspect = true;
+            }
+            else if (image.gameObject.name == "Image4" && upgrade1 != null)
+            {
+                image.sprite = upgrade4.icon;
+                image.preserveAspect = true;
+            }
 
         }
         foreach (TextMeshProUGUI text in GetComponentsInChildren<TextMeshProUGUI>())
@@ -81,6 +100,11 @@ public class Shop : MonoBehaviour
             else if (text.gameObject.name == "UnitName2" && unit2 != null)
             {
                 text.text = unit2.charClass;
+            }
+            else if (text.gameObject.name == "UpgradeText1" && upgrade1 != null)
+            {
+                text.text = upgrade1.description;
+
             }
         }
 

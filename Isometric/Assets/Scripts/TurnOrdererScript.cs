@@ -83,9 +83,9 @@ public class TurnOrdererScript : MonoBehaviour
             if(Player1.unitsToDrop.Count == 0 && Player2.unitsToDrop.Count == 0)
             {
                 if(whosTurn == 1)
-                    AttackPhaseStart(2);
-                else
                     AttackPhaseStart(1);
+                else
+                    AttackPhaseStart(2);
                 spawnPhase = false;
 
             }
