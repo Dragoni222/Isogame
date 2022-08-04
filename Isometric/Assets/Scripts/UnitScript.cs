@@ -59,7 +59,7 @@ public class UnitScript : MonoBehaviour
         board = turnOrder.board;
         if (hp <= 0&& !dead)
         {
-            if(board != null)
+            if(board != null && board.allCells[(int)boardPosition.x, (int)boardPosition.y]!= null)
             {
                 board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
             }
