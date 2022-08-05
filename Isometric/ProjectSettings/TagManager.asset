@@ -18,6 +18,7 @@ TagManager:
   - Warrior2
   - Unit
   - Upgrade
+  - Blocker
   layers:
   - Default
   - TransparentFX

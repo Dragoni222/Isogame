@@ -178,16 +178,16 @@ public class Statbar : MonoBehaviour
 
     void SlideIn()
     {
-        if(!isInScene)
-            GetComponent<RectTransform>().DOMoveX(208.8f, 0.1f);
-       
+        if (!isInScene)
+            GetComponent<RectTransform>().anchoredPosition = new Vector2( 200f, GetComponent<RectTransform>().anchoredPosition.y);
+
         isInScene = true;
     }
 
     void SlideOut()
     {
         if(isInScene)
-            GetComponent<RectTransform>().DOMoveX(-300, 0.1f);
+            GetComponent<RectTransform>().anchoredPosition = new Vector2(-200f, GetComponent<RectTransform>().anchoredPosition.y);
         isInScene = false;
     }
 

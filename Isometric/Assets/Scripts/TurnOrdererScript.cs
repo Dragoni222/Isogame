@@ -247,7 +247,13 @@ public class TurnOrdererScript : MonoBehaviour
 
         if (!firstBoard)
         {
-            Destroy(board);
+            Debug.Log("board");
+            Destroy(board.gameObject);
+            foreach(GameObject blocker in GameObject.FindGameObjectsWithTag("Bloacker"))
+            {
+                Destroy(blocker);
+            }
+     
             int randomBoard = Random.Range(0, boardPrefabs.Count);
             board = Instantiate(boardPrefabs[randomBoard], new Vector3(40, -1.7f, 40), Quaternion.identity).GetComponent<BoardScript>();
         }
@@ -300,6 +306,17 @@ public class TurnOrdererScript : MonoBehaviour
         player2UnitAlive = true;
         player1UnitAliveTemp = true;
         player2UnitAliveTemp = true;
+
+        Player1.selectedCell = null;
+        Player1.selectedUnit = null;
+        Player1.selectedObjectAttack = null;
+        Player1.selectedObjectMove = null;
+
+        Player2.selectedCell = null;
+        Player2.selectedUnit = null;
+        Player2.selectedObjectAttack = null;
+        Player2.selectedObjectMove = null;
+
         foreach (MeshRenderer rendr in board.gameObject.GetComponentsInChildren<MeshRenderer>())
         {
             if (rendr.gameObject.name == "Wall1" || rendr.gameObject.name == "Wall2")

@@ -36,7 +36,6 @@ public class BoardScript : MonoBehaviour
                 if (map.blockedCells[x].rowdata[y])
                 {
                     int randomBlock = UnityEngine.Random.Range(0, blockers.Length);
-                    Debug.Log(x + "," + y);
                     Instantiate(blockers[randomBlock], new Vector3(BoardToRealPos(x), 5, BoardToRealPos(y)), Quaternion.identity).GetComponent<UnitScript>().Respawn(new Vector2(x, y), this);
                 }
 

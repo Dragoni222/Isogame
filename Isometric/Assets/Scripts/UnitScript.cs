@@ -282,10 +282,9 @@ public class UnitScript : MonoBehaviour
         dead = false;
         if (Board.allCells[(int)BoardPos.x,(int)BoardPos.y].GetComponent<CellScript>().occupiedBy == null )
         {
-            
+            RebuildUnit(BoardPos);
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 150f, BoardToRealPos((int)BoardPos.y));
             Board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
-            RebuildUnit(BoardPos);
 
             transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(9f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
             if (team == 1)

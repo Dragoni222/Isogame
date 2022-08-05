@@ -91,7 +91,7 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Unit")
+        if(other.gameObject.tag == "Unit" || other.gameObject.tag == "Blocker")
         {
             finalPos = other.GetComponent<UnitScript>().boardPosition;
             ProjectileHit();

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -5933474679257322637}
   m_Layer: 1
   m_Name: BlockerPrefab 9
-  m_TagString: Unit
+  m_TagString: Blocker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1137,9 +1137,9 @@ public class PlayerUnits : MonoBehaviour
     void SlideIn()
     {
         if (!isInScene && player == 1)
-            GetComponent<RectTransform>().DOMoveX(208.8f, 0.1f);
+            GetComponent<RectTransform>().DOAnchorPosX(200, 0.1f);
         else if (!isInScene && player == 2)
-            GetComponent<RectTransform>().DOMoveX(1710.8f, 0.1f);
+            GetComponent<RectTransform>().DOAnchorPosX(-200, 0.1f);
 
         isInScene = true;
     }
@@ -1147,9 +1147,9 @@ public class PlayerUnits : MonoBehaviour
     void SlideOut()
     {
         if (isInScene && player == 1)
-            GetComponent<RectTransform>().DOMoveX(-300, 0.1f);
+            GetComponent<RectTransform>().DOAnchorPosX(-200, 0.1f);
         else if (!isInScene && player == 2)
-            GetComponent<RectTransform>().DOMoveX(2300, 0.1f);
+            GetComponent<RectTransform>().DOAnchorPosX(200, 0.1f);
         isInScene = false;
     }
 
