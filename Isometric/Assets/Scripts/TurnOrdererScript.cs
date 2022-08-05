@@ -27,7 +27,7 @@ public class TurnOrdererScript : MonoBehaviour
     public Shop shop;
     [SerializeField] TurnChangeScript turnChanger;
     public List<GameObject> boardPrefabs;
-
+    [SerializeField] StartScreen startscreen;
 
 
     void Start()
@@ -49,13 +49,13 @@ public class TurnOrdererScript : MonoBehaviour
         unit.GetComponent<UnitScript>().dead = true;
 
         endTurnButton.GetComponent<Button>().onClick.AddListener(TaskOnClick);
-        SpawnPhaseStart(1,true);
+        SpawnPhaseStart(1, true);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-     
 
         if (spawnPhase)
         {
@@ -249,7 +249,7 @@ public class TurnOrdererScript : MonoBehaviour
         {
             Debug.Log("board");
             Destroy(board.gameObject);
-            foreach(GameObject blocker in GameObject.FindGameObjectsWithTag("Bloacker"))
+            foreach(GameObject blocker in GameObject.FindGameObjectsWithTag("Blocker"))
             {
                 Destroy(blocker);
             }

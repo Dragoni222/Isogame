@@ -180,7 +180,7 @@ public class Actions : MonoBehaviour
     void SlideIn()
     {
         if (!isInScene)
-            GetComponent<RectTransform>().DOMoveX(1712f, 0.1f);
+            GetComponent<RectTransform>().DOAnchorPosX(1712f, 0.1f);
 
         isInScene = true;
     }
@@ -188,7 +188,7 @@ public class Actions : MonoBehaviour
     void SlideOut()
     {
         if (isInScene)
-            GetComponent<RectTransform>().DOMoveX(2400, 0.1f);
+            GetComponent<RectTransform>().DOAnchorPosX(2400, 0.1f);
         isInScene = false;
     }
 

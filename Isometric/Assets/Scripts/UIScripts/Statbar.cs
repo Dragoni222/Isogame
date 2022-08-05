@@ -59,19 +59,34 @@ public class Statbar : MonoBehaviour
                         {
                             text.text = Player1.selectedUnit.upgrade1.name;
                         }
+                        else if (text.gameObject.name == "Upgrade1name" && Player1.selectedUnit.upgrade1 == null)
+                        {
+                            text.text = "";
+                        }
                         else if (text.gameObject.name == "Upgrade2name" && Player1.selectedUnit.upgrade2 != null)
                         {
                             text.text = Player1.selectedUnit.upgrade2.name;
+                        }
+                        else if (text.gameObject.name == "Upgrade2name" && Player1.selectedUnit.upgrade2 == null)
+                        {
+                            text.text = "";
                         }
                         else if (text.gameObject.name == "Upgrade1text" && Player1.selectedUnit.upgrade1 != null)
                         {
                             text.text = Player1.selectedUnit.upgrade1.description;
                         }
+                        else if (text.gameObject.name == "Upgrade1text" && Player1.selectedUnit.upgrade1 == null)
+                        {
+                            text.text = "No Upgrade installed.";
+                        }
                         else if (text.gameObject.name == "Upgrade2text" && Player1.selectedUnit.upgrade2 != null)
                         {
                             text.text = Player1.selectedUnit.upgrade2.description;
                         }
-
+                        else if (text.gameObject.name == "Upgrade2text" && Player1.selectedUnit.upgrade2 == null)
+                        {
+                            text.text = "No Upgrade installed.";
+                        }
                     }
                     foreach (Image image in allImages)
                     {
@@ -83,6 +98,10 @@ public class Statbar : MonoBehaviour
                         else if (image.gameObject.name == "Upgrade2Icon" && Player1.selectedUnit.upgrade2 != null)
                         {
                             image.sprite = Player1.selectedUnit.upgrade2.icon;
+                        }
+                        else if(image.gameObject.name == "UnitSpash")
+                        {
+                            image.sprite = Player1.selectedUnit.splashArt;
                         }
 
 
@@ -127,17 +146,33 @@ public class Statbar : MonoBehaviour
                         {
                             text.text = Player2.selectedUnit.upgrade1.name;
                         }
+                        else if (text.gameObject.name == "Upgrade1name" && Player2.selectedUnit.upgrade1 == null)
+                        {
+                            text.text = "";
+                        }
                         else if (text.gameObject.name == "Upgrade2name" && Player2.selectedUnit.upgrade2 != null)
                         {
                             text.text = Player2.selectedUnit.upgrade2.name;
+                        }
+                        else if (text.gameObject.name == "Upgrade2name" && Player2.selectedUnit.upgrade2 == null)
+                        {
+                            text.text = "";
                         }
                         else if (text.gameObject.name == "Upgrade1text" && Player2.selectedUnit.upgrade1 != null)
                         {
                             text.text = Player2.selectedUnit.upgrade1.description;
                         }
+                        else if (text.gameObject.name == "Upgrade2text" && Player2.selectedUnit.upgrade1 == null)
+                        {
+                            text.text = "No Upgrade installed.";
+                        }
                         else if (text.gameObject.name == "Upgrade2text" && Player2.selectedUnit.upgrade2 != null)
                         {
                             text.text = Player2.selectedUnit.upgrade2.description;
+                        }
+                        else if (text.gameObject.name == "Upgrade2text" && Player2.selectedUnit.upgrade2 == null)
+                        {
+                            text.text = "No Upgrade installed.";
                         }
 
                     }
@@ -151,6 +186,10 @@ public class Statbar : MonoBehaviour
                         else if (image.gameObject.name == "Upgrade2Icon" && Player2.selectedUnit.upgrade2 != null)
                         {
                             image.sprite = Player2.selectedUnit.upgrade2.icon;
+                        }
+                        else if (image.gameObject.name == "UnitSpash")
+                        {
+                            image.sprite = Player2.selectedUnit.splashArt;
                         }
 
 
