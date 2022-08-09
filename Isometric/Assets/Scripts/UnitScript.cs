@@ -26,7 +26,7 @@ public class UnitScript : MonoBehaviour
     //Hidden stats
     public Ease smoothMoveEase;
     bool canMoveAgain = true;
-    private BoardScript board;
+    public BoardScript board;
     public GameObject missile;
     [SerializeField] GameObject fireFromRanger;
     [SerializeField] GameObject fireFromLobber;

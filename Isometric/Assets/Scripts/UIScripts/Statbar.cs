@@ -52,8 +52,10 @@ public class Statbar : MonoBehaviour
                         {
                             if (Player1.selectedUnit.team == 2)
                                 text.text = "Enemy's " + Player1.selectedUnit.charClass;
-                            if (Player1.selectedUnit.team == 1)
+                            else if (Player1.selectedUnit.team == 1)
                                 text.text = "Your " + Player1.selectedUnit.charClass;
+                            else
+                                text.text = Player1.selectedUnit.charClass;
                         }
                         else if (text.gameObject.name == "Upgrade1name" && Player1.selectedUnit.upgrade1 != null)
                         {

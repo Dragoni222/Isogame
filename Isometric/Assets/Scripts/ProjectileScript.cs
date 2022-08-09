@@ -90,10 +90,14 @@ public class ProjectileScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+        
     {
+        Debug.Log(other.name);
         if(other.gameObject.tag == "Unit" || other.gameObject.tag == "Blocker")
         {
             finalPos = other.GetComponent<UnitScript>().boardPosition;
+            affectedCells = PlayerScript.AllCellsInRadius(unit.board, (int)finalPos.x, (int)finalPos.y, unit.aoeRadius, true);
+            
             ProjectileHit();
         }
        

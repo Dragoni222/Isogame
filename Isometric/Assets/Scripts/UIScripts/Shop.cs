@@ -313,7 +313,7 @@ public class Shop : MonoBehaviour
     }
     void Unit2Pressed()
     {
-        if (player1.myTurn && player2.money >=2)
+        if (player1.myTurn && player1.money >=2)
         {
             unit2.SpawnByClass(new Vector2(0, 0), unit2.charClass, 1);
             turnOrder.hasBought = true;

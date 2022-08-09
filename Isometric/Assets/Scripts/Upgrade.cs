@@ -24,7 +24,15 @@ public class Upgrade : MonoBehaviour
 
     public void ApplyUpgrade(UnitScript unit)
     {
-        unit.damage += damageMod;
+
+        if (Mathf.Abs(unit.damage) < unit.damage)
+        {
+            unit.damage -= damageMod;
+        }
+        else
+        {
+            unit.damage += damageMod;
+        }
         unit.range += rangeMod;
         unit.speed += moveMod;
         unit.aoeRadius += aoeMod;
@@ -33,8 +41,16 @@ public class Upgrade : MonoBehaviour
         unit.hitsSelf = true;
         if (heal)
         {
-            unit.damage = -unit.damage;
-            unit.hitsSelf = true;
+            if(Mathf.Abs(unit.damage) < unit.damage)
+            {
+                unit.damage += 1;
+            }
+            else
+            {
+                unit.damage = -unit.damage;
+                unit.hitsSelf = true;
+            }
+    
         }
 
     }

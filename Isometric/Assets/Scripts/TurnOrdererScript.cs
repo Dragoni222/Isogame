@@ -307,12 +307,10 @@ public class TurnOrdererScript : MonoBehaviour
         player1UnitAliveTemp = true;
         player2UnitAliveTemp = true;
 
-        Player1.selectedCell = null;
         Player1.selectedUnit = null;
         Player1.selectedObjectAttack = null;
         Player1.selectedObjectMove = null;
 
-        Player2.selectedCell = null;
         Player2.selectedUnit = null;
         Player2.selectedObjectAttack = null;
         Player2.selectedObjectMove = null;

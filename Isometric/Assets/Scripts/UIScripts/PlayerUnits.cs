@@ -153,6 +153,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if(Player1.unitsToDrop[0].upgrade1 != null)
                                 image.sprite = Player1.unitsToDrop[0].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -165,6 +169,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[0].upgrade2 != null)
                                 image.sprite = Player1.unitsToDrop[0].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -177,6 +185,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[1].upgrade1 != null)
                                 image.sprite = Player1.unitsToDrop[1].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -189,6 +201,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[1].upgrade2 != null)
                                 image.sprite = Player1.unitsToDrop[1].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -201,6 +217,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[2].upgrade1 != null)
                                 image.sprite = Player1.unitsToDrop[2].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -213,6 +233,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[2].upgrade2 != null)
                                 image.sprite = Player1.unitsToDrop[2].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -225,6 +249,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[3].upgrade1 != null)
                                 image.sprite = Player1.unitsToDrop[3].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -237,6 +265,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[3].upgrade2 != null)
                                 image.sprite = Player1.unitsToDrop[3].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -249,6 +281,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[4].upgrade1 != null)
                                 image.sprite = Player1.unitsToDrop[4].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -261,6 +297,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[4].upgrade2 != null)
                                 image.sprite = Player1.unitsToDrop[4].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -273,6 +313,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[5].upgrade1 != null)
                                 image.sprite = Player1.unitsToDrop[5].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }    
                         }
                         else
                         {
@@ -285,6 +329,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player1.unitsToDrop[5].upgrade2 != null)
                                 image.sprite = Player1.unitsToDrop[5].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -425,6 +473,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[0].upgrade1 != null)
                                 image.sprite = Player2.unitsToDrop[0].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -437,6 +489,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[0].upgrade2 != null)
                                 image.sprite = Player2.unitsToDrop[0].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -449,6 +505,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[1].upgrade1 != null)
                                 image.sprite = Player2.unitsToDrop[1].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -461,6 +521,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[1].upgrade2 != null)
                                 image.sprite = Player2.unitsToDrop[1].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -473,6 +537,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[2].upgrade1 != null)
                                 image.sprite = Player2.unitsToDrop[2].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -485,6 +553,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[2].upgrade2 != null)
                                 image.sprite = Player2.unitsToDrop[2].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -497,6 +569,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[3].upgrade1 != null)
                                 image.sprite = Player2.unitsToDrop[3].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -509,6 +585,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[3].upgrade2 != null)
                                 image.sprite = Player2.unitsToDrop[3].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -521,6 +601,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[4].upgrade1 != null)
                                 image.sprite = Player2.unitsToDrop[4].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -533,6 +617,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[4].upgrade2 != null)
                                 image.sprite = Player2.unitsToDrop[4].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -545,6 +633,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[5].upgrade1 != null)
                                 image.sprite = Player2.unitsToDrop[5].upgrade1.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {
@@ -557,6 +649,10 @@ public class PlayerUnits : MonoBehaviour
                         {
                             if (Player2.unitsToDrop[5].upgrade2 != null)
                                 image.sprite = Player2.unitsToDrop[5].upgrade2.icon;
+                            else
+                            {
+                                image.sprite = transparent;
+                            }
                         }
                         else
                         {

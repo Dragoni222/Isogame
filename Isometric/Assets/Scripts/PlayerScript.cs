@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject selectedObjectAttack;
     public GameObject selectedObjectMove;
     public UnitScript selectedUnit;
-    public CellScript selectedCell;
+    //public CellScript selectedCell;
     public GameObject unit;
     private BoardScript board;
     public GameObject hoveredTile;
@@ -31,7 +31,6 @@ public class PlayerScript : MonoBehaviour
         selectedObjectAttack = null;
         selectedObjectMove = null;
         selectedUnit = null;
-        selectedCell = null;
         hoveredTile = null;
         
     }
@@ -148,13 +147,11 @@ public class PlayerScript : MonoBehaviour
                                         selectedUnit.hasMoved = true;
                                         selectedObjectMove = null;
                                         selectedUnit = null;
-                                        selectedCell = null;
                                     }
                                     else
                                     {
                                         selectedObjectMove = null;
                                         selectedUnit = null;
-                                        selectedCell = null;
                                         Debug.Log("cannot move there");
                                     }
 
@@ -164,20 +161,17 @@ public class PlayerScript : MonoBehaviour
                                     Debug.Log("not your unit, or you have already moved");
                                     selectedObjectMove = null;
                                     selectedUnit = null;
-                                    selectedCell = null;
                                 }
 
                             }
 
                             selectedObjectMove = null;
                             selectedUnit = null;
-                            selectedCell = null;
                         }
                         else
                         {
                             selectedObjectMove = null;
                             selectedUnit = null;
-                            selectedCell = null;
                         }
 
                     }
@@ -236,14 +230,12 @@ public class PlayerScript : MonoBehaviour
                                     DehighlightAll(board, "blue");
                                     selectedObjectAttack = null;
                                     selectedUnit = null;
-                                    selectedCell = null;
                                 }
                                 else
                                 {
                                     Debug.Log("not your unit, or you have alrady attacked");
                                     selectedObjectAttack = null;
                                     selectedUnit = null;
-                                    selectedCell = null;
                                 }
                                 
 
@@ -254,7 +246,6 @@ public class PlayerScript : MonoBehaviour
                         {
                             selectedObjectAttack = null;
                             selectedUnit = null;
-                            selectedCell = null;
                         }
 
                     }
