@@ -4,6 +4,8 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 using System.Text;
+
+
 public class UnitScript : MonoBehaviour
 {
     public Vector2 boardPosition;
@@ -22,6 +24,7 @@ public class UnitScript : MonoBehaviour
     public int team;
     public bool dead;
     public bool lob;
+    public bool flight;
 
     //Hidden stats
     public Ease smoothMoveEase;
@@ -46,22 +49,28 @@ public class UnitScript : MonoBehaviour
     //PARTICLES BABEYYYYYY
     public GameObject dropParticles;
     public TurnOrdererScript turnOrder;
+    public GameObject jetParticles;
 
+    public int deltaHealth;
     public bool hasMoved;
     public bool hasAttacked;
 
-
+    public HealthbarScript healthbar;
 
     private void Start()
     {
         turnOrder = GameObject.Find("TurnOrderer").GetComponent<TurnOrdererScript>();
         board = turnOrder.board;
+        
 
     }
 
     private void Update()
     {
         board = turnOrder.board;
+
+        
+
         if (hp <= 0&& !dead)
         {
             if(board != null && board.allCells[(int)boardPosition.x, (int)boardPosition.y]!= null)
@@ -72,14 +81,30 @@ public class UnitScript : MonoBehaviour
             dead = true;
             transform.position = new Vector3(0,300,0);
         }
-
+        if (board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().highlightedAttack)
+        {
+            if(turnOrder.whosTurn == 1 && turnOrder.Player1.selectedUnit!= null)
+            {
+                deltaHealth = -turnOrder.Player1.selectedUnit.GetComponent<UnitScript>().damage;
+            }
+            else if(turnOrder.whosTurn == 2 && turnOrder.Player2.selectedUnit != null)
+            {
+                deltaHealth = -turnOrder.Player2.selectedUnit.GetComponent<UnitScript>().damage;
+            }
+        }
+        else
+        {
+            deltaHealth = 0;
+        }
 
     }
 
 
     //Moving
-    public bool CanMoveToTile(BoardScript board, int x, int y)
+    public bool CanMoveToTile(BoardScript board, int x, int y, bool flight)
     {
+        if (flight)
+            return true;
         if(board.allCells[x, y].GetComponent<CellScript>().occupiedBy == null && !dead)
         {
             if(Mathf.Abs( boardPosition.x - x ) + Mathf.Abs( boardPosition.y - y) <= 1) 
@@ -98,7 +123,7 @@ public class UnitScript : MonoBehaviour
                 yield return new WaitUntil(() => canMoveAgain);
             }
 
-            if (CanMoveToTile(board, (int)cell.x, (int)cell.y))
+            if (CanMoveToTile(board, (int)cell.x, (int)cell.y, flight))
             {
                 
                 board.allCells[(int)boardPosition.x, (int)boardPosition.y].GetComponent<CellScript>().occupiedBy = null;
@@ -109,7 +134,10 @@ public class UnitScript : MonoBehaviour
                 {
                     yield return new WaitUntil(() => canMoveAgain);
                 }
-                transform.DOMove(new Vector3(BoardToRealPos((int)cell.x), 5, BoardToRealPos((int)cell.y)), 0.25f).SetEase(smoothMoveEase).OnComplete(() => { SetValuesAfterMove(board, (int)cell.x, (int)cell.y); });
+                if(!flight)
+                    transform.DOMove(new Vector3(BoardToRealPos((int)cell.x), 5, BoardToRealPos((int)cell.y)), 0.25f).SetEase(smoothMoveEase).OnComplete(() => { SetValuesAfterMove(board, (int)cell.x, (int)cell.y); });
+                else
+                    transform.DOMove(new Vector3(BoardToRealPos((int)cell.x), 30, BoardToRealPos((int)cell.y)), 0.25f).SetEase(smoothMoveEase).OnComplete(() => { SetValuesAfterMove(board, (int)cell.x, (int)cell.y); });
                 canMoveAgain = false;
             }
         }
@@ -155,10 +183,10 @@ public class UnitScript : MonoBehaviour
     }
 
     //Spawning
-    public bool SpawnBasic(Vector2 BoardPos, BoardScript board, string CharClass,int Hp, int Damage, int Speed, int MaxHP, int Range, bool HitsSelf, int AoeRadius, bool Lob, int Team)
+    public bool SpawnBasic(Vector2 BoardPos, BoardScript board, string CharClass,int Hp, int Damage, int Speed, int MaxHP, int Range, bool HitsSelf, int AoeRadius, bool Lob, int Team, bool Flight)
     {
         boardPosition = BoardPos;
-       
+        flight = Flight; 
         charClass = CharClass;
         hp = Hp;
         damage = Damage;
@@ -184,7 +212,7 @@ public class UnitScript : MonoBehaviour
     {
         if(CharClass == "Warrior")
         {
-            SpawnBasic(BoardPos, board, CharClass, 9, 2, 2, 9, 1, false, 0,false, Team);
+            SpawnBasic(BoardPos, board, CharClass, 9, 2, 2, 9, 1, false, 0,false, Team, false);
             if (Team == 1)
             {
                 splashArt = WarriorSplash1;
@@ -213,7 +241,7 @@ public class UnitScript : MonoBehaviour
         }
         else if (CharClass == "Lobber")
         {
-            SpawnBasic(BoardPos, board, CharClass, 7, 2, 1, 7, 2, true, 1, true, Team);
+            SpawnBasic(BoardPos, board, CharClass, 7, 2, 1, 7, 2, true, 1, true, Team, false);
             if(Team == 1)
             {
                 splashArt = LobberSplash1;
@@ -243,7 +271,7 @@ public class UnitScript : MonoBehaviour
         }
         else if (CharClass == "Ranger")
         {
-            SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0,false, Team);
+            SpawnBasic(BoardPos, board, CharClass, 5, 3, 1, 5, 4, false, 0,false, Team, false);
             if (Team == 1)
             {
                 splashArt = RangerSplash1;
@@ -272,7 +300,7 @@ public class UnitScript : MonoBehaviour
         }
         else
         {
-            SpawnBasic(BoardPos, board, CharClass, 5, 0, 0, 5, 0, false, 0, false, -1);
+            SpawnBasic(BoardPos, board, CharClass, 5, 0, 0, 5, 0, false, 0, false, -1, false);
         }
 
     }
@@ -283,10 +311,13 @@ public class UnitScript : MonoBehaviour
         if (Board.allCells[(int)BoardPos.x,(int)BoardPos.y].GetComponent<CellScript>().occupiedBy == null )
         {
             RebuildUnit(BoardPos);
+            
             transform.position = new Vector3(BoardToRealPos((int)BoardPos.x), 150f, BoardToRealPos((int)BoardPos.y));
             Board.allCells[(int)BoardPos.x, (int)BoardPos.y].GetComponent<CellScript>().occupiedBy = gameObject;
-
-            transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(9f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
+            if(!flight)
+                transform.DOMoveY(20f, 1.3f).SetEase(Ease.OutQuad).OnComplete(() => { transform.DOMoveY(9f, 0.25f).SetEase(Ease.InQuad).OnComplete(() => { Instantiate(dropParticles, transform.position, Quaternion.identity); }); } );
+            else
+                transform.DOMoveY(30f, 1.3f).SetEase(Ease.OutQuad);
             if (team == 1)
             {
                 GameObject.Find("Player1").GetComponent<PlayerScript>().unitsToDrop.Remove(gameObject.GetComponent<UnitScript>());
@@ -302,6 +333,7 @@ public class UnitScript : MonoBehaviour
 
     public void RebuildUnit(Vector2 BoardPos)
     {
+        
         if(team == 1)
         {
             GameObject.Find("Player1").GetComponent<PlayerScript>().units.Remove(gameObject.GetComponent<UnitScript>());
@@ -312,9 +344,14 @@ public class UnitScript : MonoBehaviour
         }
         SpawnByClass(BoardPos,  charClass, team);
         if(upgrade1 != null)
+        {
             upgrade1.ApplyUpgrade(gameObject.GetComponent<UnitScript>());
+            
+        }
+            
         if (upgrade2 != null)
             upgrade2.ApplyUpgrade(gameObject.GetComponent<UnitScript>());
+
 
     }
 
@@ -344,7 +381,7 @@ public class UnitScript : MonoBehaviour
     }
 
     //create map for pathfinder (yes i know its ineffecient shut up)
-    private static List<string> MapMaker(GameObject[,] allCells, Vector2 initial, Vector2 final)
+    private static List<string> MapMaker(GameObject[,] allCells, Vector2 initial, Vector2 final, bool flight)
     {
         int finalPositions = 0;
         List<string> result = new List<string>()
@@ -369,7 +406,7 @@ public class UnitScript : MonoBehaviour
                 stringB[(int)script.boardPos.y] = 'A';
                 result[(int)script.boardPos.x] = stringB.ToString();
             }
-            else if(script.occupiedBy != null)
+            else if(script.occupiedBy != null && !flight)
             {
                 StringBuilder stringB = new StringBuilder(result[(int)script.boardPos.x]);
                 stringB[(int)script.boardPos.y] = 'X';
@@ -410,10 +447,12 @@ public class UnitScript : MonoBehaviour
         var maxX = map.First().Length - 1;
         var maxY = map.Count - 1;
 
+        
+
         return possibleTiles
                 .Where(tile => tile.X >= 0 && tile.X <= maxX)
                 .Where(tile => tile.Y >= 0 && tile.Y <= maxY)
-                .Where(tile => map[tile.Y][tile.X] == ' ' || map[tile.Y][tile.X] == 'B')
+                .Where(tile => map[tile.Y][tile.X] == ' ' || map[tile.Y][tile.X] == 'B' )
                 .ToList();
 
 
@@ -421,11 +460,11 @@ public class UnitScript : MonoBehaviour
 
     }
 
-    public static List<Vector2> Pathfind(GameObject[,] allCells, Vector2 initial, Vector2 final)
+    public static List<Vector2> Pathfind(GameObject[,] allCells, Vector2 initial, Vector2 final, bool flight)
     {
         List<Vector2> result = new List<Vector2>();
 
-        List<string> map = MapMaker(allCells, initial, final);
+        List<string> map = MapMaker(allCells, initial, final, flight);
 
         if(map == null)
         {

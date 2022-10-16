@@ -20,7 +20,7 @@ public class Upgrade : MonoBehaviour
     //public bool burn;
     //public bool applyToAdjOnDrop;
     //public bool lastStand;
-
+    public bool flight;
 
     public void ApplyUpgrade(UnitScript unit)
     {
@@ -39,6 +39,14 @@ public class Upgrade : MonoBehaviour
         unit.maxHP += maxHPMod;
         unit.hp += maxHPMod;
         unit.hitsSelf = true;
+        
+        if (flight)
+        {
+           
+            unit.flight = true;
+            unit.jetParticles.SetActive(true);
+            
+        }
         if (heal)
         {
             if(Mathf.Abs(unit.damage) < unit.damage)

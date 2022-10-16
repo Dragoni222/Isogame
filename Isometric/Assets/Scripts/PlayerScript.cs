@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         hoverExtend = false;
 
-                        hoverPath = UnitScript.Pathfind(board.allCells, selectedUnit.boardPosition, hoverTileGeneralScript.boardPos);
+                        hoverPath = UnitScript.Pathfind(board.allCells, selectedUnit.boardPosition, hoverTileGeneralScript.boardPos, selectedUnit.flight);
                         if (hoverPath != null && units.Contains(selectedUnit.GetComponent<UnitScript>()))
                         {
                             foreach (Vector2 cell in hoverPath)
@@ -94,7 +94,10 @@ public class PlayerScript : MonoBehaviour
                     if (hoveredTile != null)
                     {
                         if (hoverExtend)
+                        {
                             HighlightAllCellsInRadius(board, (int)hoveredTile.GetComponent<CellScript>().boardPos.x, (int)hoveredTile.GetComponent<CellScript>().boardPos.y, hoverRad, true, "red", false);
+                            
+                        }
                         else if(hoveredTile.GetComponent<CellScript>().occupiedBy == null)
                             HighlightAllCellsInRadius(board, (int)hoveredTile.GetComponent<CellScript>().boardPos.x, (int)hoveredTile.GetComponent<CellScript>().boardPos.y, 0, true, "yellow", false);
                         else if( units.Contains(hoveredTile.GetComponent<CellScript>().occupiedBy.GetComponent<UnitScript>()))
@@ -240,6 +243,11 @@ public class PlayerScript : MonoBehaviour
                                 
 
                             }
+                            else
+                            {
+                                selectedObjectAttack = null;
+                                selectedUnit = null;
+                            }
                             selectedObjectAttack = hoverTileGeneral;
                         }
                         else
@@ -302,9 +310,9 @@ public class PlayerScript : MonoBehaviour
 
                 if (Input.GetButtonDown("leftclick") && hoverTileGeneral != null)
                 {
-                    if((hoverTileGeneralScript.boardPos.y < 3 && unitsToDrop[selectedUnitID].team == 1) || (hoverTileGeneralScript.boardPos.y >= 5 && unitsToDrop[selectedUnitID].team == 2))
+                    if((hoverTileGeneralScript.boardPos.y < 3 && unitsToDrop[(int)selectedUnitID].team == 1) || (hoverTileGeneralScript.boardPos.y >= 5 && unitsToDrop[(int)selectedUnitID].team == 2))
                     {
-                        if (unitsToDrop[selectedUnitID].Respawn(hoverTileGeneralScript.boardPos, board))
+                        if (unitsToDrop[(int)selectedUnitID].Respawn(hoverTileGeneralScript.boardPos, board))
                         {
                             turnOrder.hasPlaced = true;
                         }

@@ -224,17 +224,17 @@ public class Shop : MonoBehaviour
 
         if(randomUnit == 1)
         {
-            unit1 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
+            unit1 = PhotonNetwork.Instantiate(unitPrefab.name, new Vector3(1000, 1000, 1000), Quaternion.identity,0).GetComponent<UnitScript>();
             unit1.SpawnByClass(new Vector2(0, 0),  "Warrior", 0);
         }
         else if(randomUnit == 2)
         {
-            unit1 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
+            unit1 = PhotonNetwork.Instantiate(unitPrefab.name, new Vector3(1000, 1000, 1000), Quaternion.identity,0).GetComponent<UnitScript>();
             unit1.SpawnByClass(new Vector2(0, 0), "Lobber", 0);
         }
         else if (randomUnit == 3)
         {
-            unit1 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
+            unit1 = PhotonNetwork.Instantiate(unitPrefab.name, new Vector3(1000, 1000, 1000), Quaternion.identity,0).GetComponent<UnitScript>();
             unit1.SpawnByClass(new Vector2(0, 0), "Ranger", 0);
         }
 
@@ -242,17 +242,17 @@ public class Shop : MonoBehaviour
 
         if (randomUnit2 == 1)
         {
-            unit2 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
+            unit2 = PhotonNetwork.Instantiate(unitPrefab.name, new Vector3(1000, 1000, 1000), Quaternion.identity,0).GetComponent<UnitScript>();
             unit2.SpawnByClass(new Vector2(0, 0), "Warrior", 0);
         }
         else if (randomUnit2 == 2)
         {
-            unit2 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
+            unit2 = PhotonNetwork.Instantiate(unitPrefab.name, new Vector3(1000, 1000, 1000), Quaternion.identity,0).GetComponent<UnitScript>();
             unit2.SpawnByClass(new Vector2(0, 0), "Lobber", 0);
         }
         else if (randomUnit2 == 3)
         {
-            unit2 = Instantiate(unitPrefab, new Vector3(1000, 1000, 1000), Quaternion.identity).GetComponent<UnitScript>();
+            unit2 = PhotonNetwork.Instantiate(unitPrefab.name, new Vector3(1000, 1000, 1000), Quaternion.identity,0).GetComponent<UnitScript>();
             unit2.SpawnByClass(new Vector2(0, 0), "Ranger", 0);
         }
 

@@ -23,6 +23,8 @@ public class TurnOrdererScript : MonoBehaviour
     public int player1Score;
     public int player2Score;
     public bool endTurn;
+    public bool shopEndTurn1;
+    public bool shopEndTurn2;
     public GameObject endTurnButton;
     public Shop shop;
     [SerializeField] TurnChangeScript turnChanger;
@@ -49,13 +51,15 @@ public class TurnOrdererScript : MonoBehaviour
         unit.GetComponent<UnitScript>().dead = true;
 
         endTurnButton.GetComponent<Button>().onClick.AddListener(TaskOnClick);
-        SpawnPhaseStart(1, true);
+       
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (startscreen.startGame && !spawnPhase && !attackPhase && !shopPhase)
+            SpawnPhaseStart(1, true);
 
         if (spawnPhase)
         {
@@ -197,17 +201,21 @@ public class TurnOrdererScript : MonoBehaviour
         {
             if((Player1.money <= 0||endTurn) && whosTurn == 1)
             {
+                if (endTurn)
+                    shopEndTurn1 = true;
                 hasBought = true;
             }
             else if ((Player2.money <= 0||endTurn) && whosTurn == 2)
             {
+                if (endTurn)
+                    shopEndTurn2 = true;
                 hasBought = true;
             }
 
-            if ((Player1.money <= 0 && Player2.money <= 0) || ( (Player2.money <= 0 || endTurn) && whosTurn == 2 && Player1.money <= 0) || ((Player1.money <= 0 || endTurn) && whosTurn == 1 && Player2.money <= 0))
-            {
+            if ((Player1.money <= 0 || shopEndTurn1) && (Player2.money <= 0||shopEndTurn2))
                 SpawnPhaseStart(whosTurn,false);
-            }
+           
+
 
             if (hasBought)
             {
@@ -219,7 +227,7 @@ public class TurnOrdererScript : MonoBehaviour
                     Player2.myTurn = true;
                     Player1.myTurn = false;
                     Player2.selectedUnitID = 0;
-
+                    endTurn = false;
                 }
                 else
                 {
@@ -229,6 +237,7 @@ public class TurnOrdererScript : MonoBehaviour
                     Player1.myTurn = true;
                     Player2.myTurn = false;
                     Player1.selectedUnitID = 0;
+                    endTurn = false;
                 }
             }
         }
@@ -247,7 +256,7 @@ public class TurnOrdererScript : MonoBehaviour
 
         if (!firstBoard)
         {
-            Debug.Log("board");
+            
             Destroy(board.gameObject);
             foreach(GameObject blocker in GameObject.FindGameObjectsWithTag("Blocker"))
             {
@@ -256,6 +265,7 @@ public class TurnOrdererScript : MonoBehaviour
      
             int randomBoard = Random.Range(0, boardPrefabs.Count);
             board = Instantiate(boardPrefabs[randomBoard], new Vector3(40, -1.7f, 40), Quaternion.identity).GetComponent<BoardScript>();
+            Debug.Log(boardPrefabs[randomBoard].name);
         }
         foreach (GameObject unit in GameObject.FindGameObjectsWithTag("Unit"))
         {
@@ -341,6 +351,8 @@ public class TurnOrdererScript : MonoBehaviour
         shopPhase = true;
         attackPhase = false;
         whosTurn = startPlayer;
+        shopEndTurn1 = false;
+        shopEndTurn2 = false;
         if (whosTurn == 1)
         {
             whosTurn = 2;

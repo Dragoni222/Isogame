@@ -21,7 +21,8 @@ public class StartScreen : MonoBehaviour
 
     void StartButton()
     {
+        if(!startGame)
+            GetComponent<RectTransform>().DOAnchorPosY(2000, 2f).SetEase(Ease.InBack);
         startGame = true;
-        GetComponent<RectTransform>().DOAnchorPosY(2000, 2f).SetEase(Ease.InBack);
     }
 }

@@ -51,6 +51,7 @@ public class ProjectileScript : MonoBehaviour
 
             }
         }
+        DOTween.Clear();
         Destroy(gameObject);
         
     }
@@ -75,9 +76,19 @@ public class ProjectileScript : MonoBehaviour
 
         if (unit.lob)
         {
-            rb.useGravity = true;
-            rb.AddForce(new Vector3(finalPos.x - transform.position.x, 0, finalPos.z - transform.position.z) * speed);
-            rb.AddForce(new Vector3(0, upForce, 0));
+            if (unit.flight)
+            {
+                rb.useGravity = true;
+                rb.AddForce(new Vector3(finalPos.x - transform.position.x, 0, finalPos.z - transform.position.z) * 25);
+                rb.AddForce(new Vector3(0, upForce, 0));
+            }
+            else
+            {
+                rb.useGravity = true;
+                rb.AddForce(new Vector3(finalPos.x - transform.position.x, 0, finalPos.z - transform.position.z) * 30);
+                rb.AddForce(new Vector3(0, upForce, 0));
+            }
+            
 
 
         }
@@ -92,7 +103,7 @@ public class ProjectileScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
         
     {
-        Debug.Log(other.name);
+        
         if(other.gameObject.tag == "Unit" || other.gameObject.tag == "Blocker")
         {
             finalPos = other.GetComponent<UnitScript>().boardPosition;
